@@ -1,0 +1,18 @@
+{
+  "tests.test_types::test_format_options_frozen": {
+    "secs": 0,
+    "nanos": 7042
+  },
+  "tests.test_explain::test_explain_single_missing_field": {
+    "secs": 0,
+    "nanos": 109292
+  },
+  "tests.test_format::test_format_errors_very_long_path": {
+    "secs": 0,
+    "nanos": 27083
+  },
+  "tests.test_format::test_truncate_repr_over_limit": {
+    "secs": 0,
+    "nanos": 2833
+  }
+}

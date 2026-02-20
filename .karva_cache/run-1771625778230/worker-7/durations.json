@@ -1,0 +1,22 @@
+{
+  "tests.test_explain::test_format_loc_empty": {
+    "secs": 0,
+    "nanos": 1458
+  },
+  "tests.test_explain::test_explain_preserves_input_value": {
+    "secs": 0,
+    "nanos": 25750
+  },
+  "tests.test_explain::test_format_loc_single_int": {
+    "secs": 0,
+    "nanos": 20458
+  },
+  "tests.test_format::test_format_errors_show_input_false": {
+    "secs": 0,
+    "nanos": 465125
+  },
+  "tests.test_explain::test_format_loc_single_string": {
+    "secs": 0,
+    "nanos": 3584
+  }
+}

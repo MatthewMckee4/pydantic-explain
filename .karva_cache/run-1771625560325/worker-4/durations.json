@@ -1,0 +1,18 @@
+{
+  "tests.test_types::test_error_detail_frozen": {
+    "secs": 0,
+    "nanos": 5625
+  },
+  "tests.test_format::test_format_errors_show_input_false": {
+    "secs": 0,
+    "nanos": 43166
+  },
+  "tests.test_explain::test_format_loc_int_index": {
+    "secs": 0,
+    "nanos": 2292
+  },
+  "tests.test_explain::test_explain_is_immutable": {
+    "secs": 0,
+    "nanos": 9792
+  }
+}

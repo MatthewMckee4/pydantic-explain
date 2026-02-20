@@ -1,0 +1,18 @@
+{
+  "tests.test_explain::test_format_loc_single_string": {
+    "secs": 0,
+    "nanos": 2584
+  },
+  "tests.test_format::test_format_errors_header": {
+    "secs": 0,
+    "nanos": 37875
+  },
+  "tests.test_public_api::test_importable": {
+    "secs": 0,
+    "nanos": 2167
+  },
+  "tests.test_format::test_format_errors_none_input": {
+    "secs": 0,
+    "nanos": 5375
+  }
+}

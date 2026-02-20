@@ -1,0 +1,14 @@
+{
+  "tests.test_explain::test_format_loc_empty": {
+    "secs": 0,
+    "nanos": 1666
+  },
+  "tests.test_format::test_format_errors_singular_error_count": {
+    "secs": 0,
+    "nanos": 84500
+  },
+  "tests.test_format::test_format_error_detail_with_url": {
+    "secs": 0,
+    "nanos": 12042
+  }
+}

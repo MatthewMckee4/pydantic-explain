@@ -1,0 +1,14 @@
+{
+  "tests.test_explain::test_explain_is_immutable": {
+    "secs": 0,
+    "nanos": 29000
+  },
+  "tests.test_format::test_format_errors_plural_error_count": {
+    "secs": 0,
+    "nanos": 21833
+  },
+  "tests.test_format::test_format_errors_multiple_errors": {
+    "secs": 0,
+    "nanos": 11208
+  }
+}

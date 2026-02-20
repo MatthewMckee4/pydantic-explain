@@ -1,0 +1,18 @@
+{
+  "tests.test_format::test_truncate_repr_exact_limit": {
+    "secs": 0,
+    "nanos": 3375
+  },
+  "tests.test_explain::test_explain_preserves_input_value": {
+    "secs": 0,
+    "nanos": 44458
+  },
+  "tests.test_public_api::test_all_exports": {
+    "secs": 0,
+    "nanos": 2500
+  },
+  "tests.test_types::test_error_detail_repr": {
+    "secs": 0,
+    "nanos": 7666
+  }
+}

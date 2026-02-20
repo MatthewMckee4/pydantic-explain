@@ -1,0 +1,26 @@
+{
+  "tests.test_types::test_error_detail_slots": {
+    "secs": 0,
+    "nanos": 1667
+  },
+  "tests.test_public_api::test_no_private_leaks": {
+    "secs": 0,
+    "nanos": 75542
+  },
+  "tests.test_public_api::test_all_exports": {
+    "secs": 0,
+    "nanos": 2583
+  },
+  "tests.test_explain::test_explain_single_missing_field": {
+    "secs": 0,
+    "nanos": 79291
+  },
+  "tests.test_format::test_format_errors_none_input": {
+    "secs": 0,
+    "nanos": 8500
+  },
+  "tests.test_public_api::test_importable": {
+    "secs": 0,
+    "nanos": 2750
+  }
+}

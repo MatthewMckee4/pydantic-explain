@@ -1,0 +1,22 @@
+{
+  "tests.test_types::test_error_detail_frozen": {
+    "secs": 0,
+    "nanos": 9583
+  },
+  "tests.test_format::test_truncate_repr_under_limit": {
+    "secs": 0,
+    "nanos": 4542
+  },
+  "tests.test_explain::test_explain_list_index_path": {
+    "secs": 0,
+    "nanos": 198750
+  },
+  "tests.test_format::test_truncate_repr_exact_limit": {
+    "secs": 0,
+    "nanos": 2625
+  },
+  "tests.test_format::test_format_errors_plural_error_count": {
+    "secs": 0,
+    "nanos": 24291
+  }
+}

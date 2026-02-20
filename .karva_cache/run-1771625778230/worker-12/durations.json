@@ -1,0 +1,18 @@
+{
+  "tests.test_format::test_format_errors_multiple_errors": {
+    "secs": 0,
+    "nanos": 145709
+  },
+  "tests.test_types::test_format_options_defaults": {
+    "secs": 0,
+    "nanos": 7166
+  },
+  "tests.test_format::test_format_errors_very_long_path": {
+    "secs": 0,
+    "nanos": 17875
+  },
+  "tests.test_explain::test_explain_multiple_errors": {
+    "secs": 0,
+    "nanos": 195292
+  }
+}
