@@ -12,6 +12,7 @@ def test_all_exports():
         "explain",
         "format_error_detail",
         "format_errors",
+        "format_errors_rich",
     }
 
 
@@ -22,6 +23,7 @@ def test_importable():
         explain,
         format_error_detail,
         format_errors,
+        format_errors_rich,
     )
 
     assert ErrorDetail is not None
@@ -29,6 +31,7 @@ def test_importable():
     assert explain is not None
     assert format_error_detail is not None
     assert format_errors is not None
+    assert format_errors_rich is not None
 
 
 def test_no_private_leaks():
