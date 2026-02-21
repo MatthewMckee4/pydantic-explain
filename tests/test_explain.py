@@ -4,9 +4,14 @@ from __future__ import annotations
 
 from pydantic_explain import explain
 from pydantic_explain._explain import _format_loc
-from tests.conftest import Constrained, User, make_validation_error
-
-# --- _format_loc tests ---
+from tests.conftest import (
+    Constrained,
+    Outer,
+    UnionFields,
+    User,
+    Validated,
+    make_validation_error,
+)
 
 
 def test_format_loc_string_only():
@@ -35,9 +40,6 @@ def test_format_loc_empty():
 
 def test_format_loc_all_marker():
     assert _format_loc(("items", "__all__", "x")) == "items[*].x"
-
-
-# --- explain tests ---
 
 
 def test_explain_returns_tuple():
@@ -147,3 +149,26 @@ def test_explain_is_immutable():
         pass
     else:
         raise AssertionError("ErrorDetail should be frozen")
+
+
+def test_explain_deep_nesting():
+    error = make_validation_error(Outer, {"middle": {"inner": {"code": 123}}})
+    result = explain(error)
+    assert len(result) == 1
+    assert result[0].path == "middle.inner.code"
+
+
+def test_explain_union_type_error():
+    error = make_validation_error(UnionFields, {"value": [], "tag": "ok"})
+    result = explain(error)
+    assert len(result) >= 1
+    paths = {d.path for d in result}
+    assert any(p.startswith("value") for p in paths)
+
+
+def test_explain_custom_validator():
+    error = make_validation_error(Validated, {"username": "bad user!"})
+    result = explain(error)
+    assert len(result) == 1
+    assert result[0].path == "username"
+    assert "alphanumeric" in result[0].message

@@ -6,8 +6,6 @@ from pydantic_explain import ErrorDetail, FormatOptions, format_error_detail, fo
 from pydantic_explain._format import _truncate_repr
 from tests.conftest import User, make_validation_error
 
-# --- format_errors tests ---
-
 
 def test_format_errors_header():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
@@ -139,9 +137,6 @@ def test_format_errors_very_long_path():
     assert "addresses[0].zipcode" in result
 
 
-# --- format_error_detail tests ---
-
-
 def test_format_error_detail_single():
     detail = ErrorDetail(
         path="name",
@@ -183,9 +178,6 @@ def test_format_error_detail_with_error_type():
     assert "[int_parsing]" in result
 
 
-# --- _truncate_repr tests ---
-
-
 def test_truncate_repr_short():
     assert _truncate_repr("hello", 80) == "'hello'"
 
@@ -206,3 +198,69 @@ def test_truncate_repr_over_limit():
 def test_truncate_repr_under_limit():
     result = _truncate_repr(42, 80)
     assert result == "42"
+
+
+def test_truncate_repr_empty_string():
+    assert _truncate_repr("", 80) == "''"
+
+
+def test_truncate_repr_unicode():
+    result = _truncate_repr("cafe\u0301", 80)
+    assert "caf" in result
+
+
+def test_truncate_repr_custom_repr():
+    class Custom:
+        def __repr__(self) -> str:
+            return "CustomRepr(x=1)"
+
+    assert _truncate_repr(Custom(), 80) == "CustomRepr(x=1)"
+
+
+def test_truncate_repr_custom_repr_over_limit():
+    class Verbose:
+        def __repr__(self) -> str:
+            return "V" * 200
+
+    result = _truncate_repr(Verbose(), 80)
+    assert len(result) == 80
+    assert result.endswith("...")
+
+
+def test_format_error_detail_all_options_enabled():
+    detail = ErrorDetail(
+        path="age",
+        message="Input should be a valid integer",
+        error_type="int_parsing",
+        input_value="abc",
+        context={},
+        url="https://errors.pydantic.dev/2/v/int_parsing",
+    )
+    result = format_error_detail(
+        detail,
+        options=FormatOptions(show_input=True, show_url=True, show_error_type=True),
+    )
+    assert "  age" in result
+    assert "[int_parsing]" in result
+    assert "Got: 'abc'" in result
+    assert "See: https://errors.pydantic.dev/2/v/int_parsing" in result
+
+
+def test_format_error_detail_no_options_enabled():
+    detail = ErrorDetail(
+        path="name",
+        message="Field required",
+        error_type="missing",
+        input_value={"age": 30},
+        context={},
+        url="https://errors.pydantic.dev/2/v/missing",
+    )
+    result = format_error_detail(
+        detail,
+        options=FormatOptions(show_input=False, show_url=False, show_error_type=False),
+    )
+    assert "  name" in result
+    assert "Field required" in result
+    assert "Got:" not in result
+    assert "See:" not in result
+    assert "[missing]" not in result

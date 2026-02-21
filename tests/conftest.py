@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, Field, ValidationError, field_validator
 
 
 class Address(BaseModel):
@@ -36,6 +36,53 @@ class Constrained(BaseModel):
     """Test model with field constraints."""
 
     value: int = Field(gt=0)
+
+
+class OptionalFields(BaseModel):
+    """Test model with optional fields."""
+
+    name: str
+    nickname: str | None = None
+    age: int | None = None
+
+
+class UnionFields(BaseModel):
+    """Test model with union types."""
+
+    value: int | str
+    tag: str | list[str]
+
+
+class Inner(BaseModel):
+    """Innermost level for deep nesting tests."""
+
+    code: str
+
+
+class Middle(BaseModel):
+    """Middle level for deep nesting tests."""
+
+    inner: Inner
+
+
+class Outer(BaseModel):
+    """Top level for deep nesting tests (3+ level nesting)."""
+
+    middle: Middle
+
+
+class Validated(BaseModel):
+    """Test model with a custom field validator."""
+
+    username: str
+
+    @field_validator("username")
+    @classmethod
+    def username_must_be_alphanumeric(cls, v: str) -> str:
+        if not v.isalnum():
+            msg = "must be alphanumeric"
+            raise ValueError(msg)
+        return v
 
 
 def make_validation_error(model: type[BaseModel], data: dict[str, Any]) -> ValidationError:
