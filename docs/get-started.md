@@ -2,16 +2,16 @@
 
 ## Installation
 
-Install pydantic-errors with pip:
+Install pydantic-explain with pip:
 
 ```bash
-pip install pydantic-errors
+pip install pydantic-explain
 ```
 
 Or with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-uv add pydantic-errors
+uv add pydantic-explain
 ```
 
 ## Basic Usage
@@ -23,7 +23,7 @@ and returns a human-readable string:
 
 ```python
 from pydantic import BaseModel, ValidationError
-from pydantic_errors import format_errors
+from pydantic_explain import format_errors
 
 
 class Address(BaseModel):
@@ -53,7 +53,7 @@ except ValidationError as e:
 Use `explain` to get structured `ErrorDetail` objects for programmatic access:
 
 ```python
-from pydantic_errors import explain
+from pydantic_explain import explain
 
 try:
     User.model_validate({"addresses": []})
@@ -67,7 +67,7 @@ except ValidationError as e:
 Customize output with `FormatOptions`:
 
 ```python
-from pydantic_errors import format_errors, FormatOptions
+from pydantic_explain import format_errors, FormatOptions
 
 options = FormatOptions(
     show_input=True,       # Show "Got: <value>" (default: True)

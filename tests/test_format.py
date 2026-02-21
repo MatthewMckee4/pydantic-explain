@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from pydantic_errors import ErrorDetail, FormatOptions, format_error_detail, format_errors
-from pydantic_errors._format import _truncate_repr
+from pydantic_explain import ErrorDetail, FormatOptions, format_error_detail, format_errors
+from pydantic_explain._format import _truncate_repr
 from tests.conftest import User, make_validation_error
 
 # --- format_errors tests ---

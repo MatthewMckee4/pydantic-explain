@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from pydantic_errors._explain import explain
-from pydantic_errors._types import ErrorDetail, FormatOptions
+from pydantic_explain._explain import explain
+from pydantic_explain._types import ErrorDetail, FormatOptions
 
 if TYPE_CHECKING:
     from pydantic import ValidationError

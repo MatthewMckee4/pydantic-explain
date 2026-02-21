@@ -1,19 +1,11 @@
-# Claude Code Guidelines
-
 - ALWAYS read CONTRIBUTING.md for guidelines on how to run tools
-- ALWAYS attempt to add a test case for changed behavior.
-  Get your tests to pass — if you didn't run the tests,
-  your code does not work.
+- ALWAYS attempt to add a test case for changed behavior. Get your tests to pass — if you didn't run the tests, your code does not work.
 - ALWAYS run `uvx prek run -a` at the end of a task.
 - ALWAYS run `uv run karva test tests` at the end of a task.
 - FOLLOW existing code style. Check neighboring files for patterns.
-- AVOID writing significant amounts of new code.
-  Look for existing methods and utilities first.
+- AVOID writing significant amounts of new code. Look for existing methods and utilities first.
 - PREFER short imports over fully-qualified paths for readability.
-- AVOID redundant comments and section separators
-  (e.g., `// --- Section ---`) in test files. Use comments to
-  explain invariants and why something unusual was done,
-  not to narrate code.
+- AVOID redundant comments and section separators (e.g., `// --- Section ---`) in test files. Use comments to explain invariants and why something unusual was done, not to narrate code.
 - PREFER function comments over inline comments.
 - ALWAYS add type annotations, our package should be fully typed.
 - AVOID using `Any` type, prefer a static type.

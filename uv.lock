@@ -507,7 +507,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pydantic-errors"
+name = "pydantic-explain"
 version = "0.0.1"
 source = { editable = "." }
 dependencies = [

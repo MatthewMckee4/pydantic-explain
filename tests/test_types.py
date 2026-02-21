@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from pydantic_errors import ErrorDetail, FormatOptions
+from pydantic_explain import ErrorDetail, FormatOptions
 
 
 def test_error_detail_frozen():

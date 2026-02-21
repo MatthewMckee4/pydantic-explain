@@ -11,15 +11,6 @@ build/
 
 # Virtual environments
 .venv/
-venv/
-env/
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
 
 # OS
 .DS_Store
@@ -30,10 +21,10 @@ Thumbs.db
 htmlcov/
 .pytest_cache/
 
-# Type checking
-.mypy_cache/
-
 # Distribution
 *.tar.gz
 
 .karva_cache/
+
+# Documentation
+site/

@@ -1,16 +1,49 @@
 [project]
-name = "pydantic-errors"
-description = "Human-readable error messages for Pydantic validation errors."
+site_name = "pydantic-explain"
+site_url = "https://matthewmckee4.github.io/pydantic-explain"
+site_description = "Human-readable error messages for Pydantic validation errors."
+site_author = "Matthew McKee"
+repo_url = "https://github.com/MatthewMckee4/pydantic-explain"
+repo_name = "MatthewMckee4/pydantic-explain"
+
+docs_dir = "docs"
+site_dir = "site"
+dev_addr = "localhost:3000"
+
+extra_css = ["stylesheets/extra.css"]
+
+nav = [
+    { "Home" = "index.md" },
+    { "Get Started" = "get-started.md" },
+    { "API Reference" = "api/index.md" },
+]
 
 [project.theme]
-name = "material"
+language = "en"
+features = [
+    "navigation.instant",
+    "search.highlight",
+]
 
-[project.nav]
-Home = "index.md"
-"Get Started" = "get-started.md"
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+primary = "custom"
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
 
-[project.nav."API Reference"]
-Overview = "api/index.md"
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+primary = "custom"
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[project.markdown_extensions.pymdownx.highlight]
+linenums = true
+auto_title = true
+
+[project.markdown_extensions.pymdownx.superfences]
 
 [project.plugins.mkdocstrings.handlers.python]
 paths = ["src"]

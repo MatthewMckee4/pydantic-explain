@@ -124,7 +124,7 @@ jobs:
 
     environment:
       name: pypi
-      url: https://pypi.org/project/pydantic-errors/
+      url: https://pypi.org/project/pydantic-explain/
 
     permissions:
       id-token: write
@@ -152,6 +152,9 @@ jobs:
           persist-credentials: false
 
       - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2
+
+      - name: Prepare docs
+        run: uv run --script scripts/prepare_docs.py
 
       - name: Build docs
         run: uv run --isolated --only-group docs zensical build

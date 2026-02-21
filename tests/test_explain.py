@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from pydantic_errors import explain
-from pydantic_errors._explain import _format_loc
+from pydantic_explain import explain
+from pydantic_explain._explain import _format_loc
 from tests.conftest import Constrained, User, make_validation_error
 
 # --- _format_loc tests ---
