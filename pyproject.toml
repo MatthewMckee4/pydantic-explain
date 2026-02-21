@@ -7,7 +7,7 @@ packages = ["src/pydantic_explain"]
 
 [project]
 name = "pydantic-explain"
-version = "0.0.1"
+version = "0.0.1-alpha.0"
 description = "Human-readable error messages for Pydantic validation errors."
 readme = "README.md"
 requires-python = ">=3.10"
