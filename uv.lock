@@ -508,7 +508,7 @@ wheels = [
 
 [[package]]
 name = "pydantic-explain"
-version = "0.0.1"
+version = "0.0.1a0"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
