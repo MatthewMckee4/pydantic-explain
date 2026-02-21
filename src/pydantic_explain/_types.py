@@ -25,6 +25,26 @@ class ErrorDetail:
     context: dict[str, object]
     url: str
 
+    def to_dict(self) -> dict[str, object]:
+        """Convert to a JSON-friendly dictionary, omitting empty fields.
+
+        Returns:
+            A dict with ``path``, ``message``, and ``error_type`` always present.
+            ``input_value``, ``context``, and ``url`` are included only when non-empty.
+        """
+        result: dict[str, object] = {
+            "path": self.path,
+            "message": self.message,
+            "error_type": self.error_type,
+        }
+        if self.input_value is not None:
+            result["input_value"] = self.input_value
+        if self.context:
+            result["context"] = self.context
+        if self.url:
+            result["url"] = self.url
+        return result
+
 
 @dataclass(frozen=True, slots=True)
 class FormatOptions:
