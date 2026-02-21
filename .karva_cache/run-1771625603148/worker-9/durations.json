@@ -1,0 +1,22 @@
+{
+  "tests.test_format::test_format_errors_nested": {
+    "secs": 0,
+    "nanos": 19917
+  },
+  "tests.test_explain::test_explain_returns_tuple": {
+    "secs": 0,
+    "nanos": 38333
+  },
+  "tests.test_format::test_format_errors_show_input_true": {
+    "secs": 0,
+    "nanos": 11917
+  },
+  "tests.test_format::test_truncate_repr_exact_limit": {
+    "secs": 0,
+    "nanos": 1583
+  },
+  "tests.test_types::test_format_options_custom": {
+    "secs": 0,
+    "nanos": 4125
+  }
+}

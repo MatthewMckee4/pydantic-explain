@@ -1,0 +1,18 @@
+{
+  "tests.test_explain::test_explain_nested_path": {
+    "secs": 0,
+    "nanos": 12708
+  },
+  "tests.test_format::test_format_error_detail_with_error_type": {
+    "secs": 0,
+    "nanos": 6500
+  },
+  "tests.test_format::test_format_errors_missing_input_display": {
+    "secs": 0,
+    "nanos": 41500
+  },
+  "tests.test_types::test_error_detail_frozen": {
+    "secs": 0,
+    "nanos": 6292
+  }
+}

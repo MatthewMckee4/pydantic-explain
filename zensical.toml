@@ -1,0 +1,22 @@
+[project]
+name = "pydantic-errors"
+description = "Human-readable error messages for Pydantic validation errors."
+
+[project.theme]
+name = "material"
+
+[project.nav]
+Home = "index.md"
+"Get Started" = "get-started.md"
+
+[project.nav."API Reference"]
+Overview = "api/index.md"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "google"
+inherited_members = true
+show_source = true

@@ -1,0 +1,34 @@
+{
+  "tests.test_explain::test_format_loc_all_marker": {
+    "secs": 0,
+    "nanos": 1125
+  },
+  "tests.test_explain::test_format_loc_mixed": {
+    "secs": 0,
+    "nanos": 2834
+  },
+  "tests.test_explain::test_format_loc_single_int": {
+    "secs": 0,
+    "nanos": 958
+  },
+  "tests.test_format::test_format_errors_show_input_false": {
+    "secs": 0,
+    "nanos": 35083
+  },
+  "tests.test_explain::test_format_loc_empty": {
+    "secs": 0,
+    "nanos": 458
+  },
+  "tests.test_types::test_format_options_defaults": {
+    "secs": 0,
+    "nanos": 4042
+  },
+  "tests.test_format::test_truncate_repr_short": {
+    "secs": 0,
+    "nanos": 2250
+  },
+  "tests.test_format::test_format_error_detail_with_url": {
+    "secs": 0,
+    "nanos": 5459
+  }
+}

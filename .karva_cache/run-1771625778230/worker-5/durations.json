@@ -1,0 +1,14 @@
+{
+  "tests.test_format::test_format_errors_missing_input_display": {
+    "secs": 0,
+    "nanos": 402917
+  },
+  "tests.test_explain::test_format_loc_string_only": {
+    "secs": 0,
+    "nanos": 4041
+  },
+  "tests.test_explain::test_explain_nested_path": {
+    "secs": 0,
+    "nanos": 18708
+  }
+}

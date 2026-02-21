@@ -1,0 +1,18 @@
+{
+  "tests.test_explain::test_format_loc_string_only": {
+    "secs": 0,
+    "nanos": 3625
+  },
+  "tests.test_public_api::test_no_private_leaks": {
+    "secs": 0,
+    "nanos": 5791
+  },
+  "tests.test_types::test_format_options_custom": {
+    "secs": 0,
+    "nanos": 4000
+  },
+  "tests.test_format::test_format_error_detail_with_error_type": {
+    "secs": 0,
+    "nanos": 7958
+  }
+}

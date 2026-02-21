@@ -1,0 +1,18 @@
+{
+  "tests.test_format::test_format_errors_singular_error_count": {
+    "secs": 0,
+    "nanos": 76292
+  },
+  "tests.test_explain::test_format_loc_string_only": {
+    "secs": 0,
+    "nanos": 4375
+  },
+  "tests.test_explain::test_format_loc_int_index": {
+    "secs": 0,
+    "nanos": 9500
+  },
+  "tests.test_explain::test_format_loc_single_string": {
+    "secs": 0,
+    "nanos": 1833
+  }
+}

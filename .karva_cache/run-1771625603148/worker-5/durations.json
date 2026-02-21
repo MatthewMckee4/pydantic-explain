@@ -1,0 +1,14 @@
+{
+  "tests.test_format::test_format_errors_single_error": {
+    "secs": 0,
+    "nanos": 41167
+  },
+  "tests.test_explain::test_explain_error_type_preserved": {
+    "secs": 0,
+    "nanos": 10125
+  },
+  "tests.test_types::test_error_detail_slots": {
+    "secs": 0,
+    "nanos": 1167
+  }
+}

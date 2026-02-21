@@ -1,0 +1,14 @@
+{
+  "tests.test_types::test_error_detail_repr": {
+    "secs": 0,
+    "nanos": 7583
+  },
+  "tests.test_format::test_format_errors_none_input": {
+    "secs": 0,
+    "nanos": 12625
+  },
+  "tests.test_explain::test_explain_context_absent": {
+    "secs": 0,
+    "nanos": 32375
+  }
+}

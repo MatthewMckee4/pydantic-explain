@@ -1,0 +1,18 @@
+{
+  "tests.test_explain::test_explain_context_present": {
+    "secs": 0,
+    "nanos": 53750
+  },
+  "tests.test_format::test_format_errors_multiple_errors": {
+    "secs": 0,
+    "nanos": 27250
+  },
+  "tests.test_types::test_error_detail_slots": {
+    "secs": 0,
+    "nanos": 2292
+  },
+  "tests.test_explain::test_format_loc_single_int": {
+    "secs": 0,
+    "nanos": 3292
+  }
+}
