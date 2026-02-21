@@ -27,6 +27,9 @@ dependencies = [
     "pydantic>=2.0",
 ]
 
+[project.optional-dependencies]
+rich = ["rich>=13.0"]
+
 [project.urls]
 Homepage = "https://github.com/MatthewMckee4/pydantic-explain"
 Repository = "https://github.com/MatthewMckee4/pydantic-explain"
@@ -35,6 +38,7 @@ Issues = "https://github.com/MatthewMckee4/pydantic-explain/issues"
 [dependency-groups]
 dev = [
     "karva",
+    "rich>=13.0",
     "ruff",
     "ty",
     "pre-commit",
