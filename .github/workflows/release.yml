@@ -138,8 +138,6 @@ jobs:
           path: dist/
 
       - run: uv publish -v dist/*
-        env:
-          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
 
   publish-docs:
     name: Publish documentation
