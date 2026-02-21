@@ -514,7 +514,7 @@ dependencies = [
     { name = "pydantic" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
     { name = "karva" },
     { name = "pre-commit" },
@@ -526,29 +526,20 @@ docs = [
     { name = "zensical" },
 ]
 
-[package.dev-dependencies]
-dev = [
-    { name = "pydantic-errors", extra = ["dev"] },
-]
-docs = [
-    { name = "pydantic-errors", extra = ["docs"] },
-]
-
 [package.metadata]
-requires-dist = [
-    { name = "karva", marker = "extra == 'dev'" },
-    { name = "mkdocstrings", extras = ["python"], marker = "extra == 'docs'" },
-    { name = "pre-commit", marker = "extra == 'dev'" },
-    { name = "pydantic", specifier = ">=2.0" },
-    { name = "ruff", marker = "extra == 'dev'" },
-    { name = "ty", marker = "extra == 'dev'" },
-    { name = "zensical", marker = "extra == 'docs'" },
-]
-provides-extras = ["dev", "docs"]
+requires-dist = [{ name = "pydantic", specifier = ">=2.0" }]
 
 [package.metadata.requires-dev]
-dev = [{ name = "pydantic-errors", extras = ["dev"] }]
-docs = [{ name = "pydantic-errors", extras = ["docs"] }]
+dev = [
+    { name = "karva" },
+    { name = "pre-commit" },
+    { name = "ruff" },
+    { name = "ty" },
+]
+docs = [
+    { name = "mkdocstrings", extras = ["python"] },
+    { name = "zensical" },
+]
 
 [[package]]
 name = "pygments"

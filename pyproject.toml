@@ -32,7 +32,7 @@ Homepage = "https://github.com/MatthewMckee4/pydantic-errors"
 Repository = "https://github.com/MatthewMckee4/pydantic-errors"
 Issues = "https://github.com/MatthewMckee4/pydantic-errors/issues"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "karva",
     "ruff",
@@ -43,10 +43,6 @@ docs = [
     "zensical",
     "mkdocstrings[python]",
 ]
-
-[dependency-groups]
-dev = ["pydantic-errors[dev]"]
-docs = ["pydantic-errors[docs]"]
 
 [tool.ruff]
 target-version = "py310"
