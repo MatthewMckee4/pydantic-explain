@@ -1,0 +1,25 @@
+[release]
+current-version = "0.0.1"
+
+version-files = [
+    "pyproject.toml",
+]
+
+commit-message = "Release v{version}"
+branch-name = "release/v{version}"
+push = true
+confirm = true
+
+[changelog.section-labels]
+"Bug Fixes" = ["bug"]
+"Performance" = ["performance"]
+"Configuration" = ["configuration"]
+"Documentation" = ["documentation"]
+"Testing" = ["testing"]
+"Dependencies" = ["dependencies"]
+
+[changelog]
+ignore-contributors = ["dependabot[bot]"]
+ignore-labels = ["internal", "ci", "needs-decision", "wish"]
+include-contributors = true
+changelog-heading = "{version}"

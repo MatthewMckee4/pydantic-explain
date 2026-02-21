@@ -1,23 +1,21 @@
-# CLAUDE.md
+# Claude Code Guidelines
 
-## Commands
-
-- `uv sync --all-groups` — install all dependencies
-- `uv run karva test` — run tests
-- `uv run ruff check .` — lint
-- `uv run ruff format .` — format code
-- `uv run ruff format --check .` — check formatting
-- `uv run ty check` — type check
-
-## Project Conventions
-
-- Python 3.10+ target
-- Use `from __future__ import annotations` in all Python files
-- Use `X | Y` union syntax, not `Optional[X]` or `Union[X, Y]`
-- Google-style docstrings
-- Full type annotations on all public functions
-- `src/` layout with explicit `__all__` in `__init__.py`
-- Immutable data structures (frozen dataclasses, tuples)
-- Zero runtime dependencies beyond `pydantic>=2.0`
-- karva for testing (not pytest)
-- No wildcard imports
+- ALWAYS read CONTRIBUTING.md for guidelines on how to run tools
+- ALWAYS attempt to add a test case for changed behavior.
+  Get your tests to pass — if you didn't run the tests,
+  your code does not work.
+- ALWAYS run `uvx prek run -a` at the end of a task.
+- ALWAYS run `uv run karva test tests` at the end of a task.
+- FOLLOW existing code style. Check neighboring files for patterns.
+- AVOID writing significant amounts of new code.
+  Look for existing methods and utilities first.
+- PREFER short imports over fully-qualified paths for readability.
+- AVOID redundant comments and section separators
+  (e.g., `// --- Section ---`) in test files. Use comments to
+  explain invariants and why something unusual was done,
+  not to narrate code.
+- PREFER function comments over inline comments.
+- ALWAYS add type annotations, our package should be fully typed.
+- AVOID using `Any` type, prefer a static type.
+- ALWAYS use the most modern type annotation style
+- NEVER use wildcard imports
