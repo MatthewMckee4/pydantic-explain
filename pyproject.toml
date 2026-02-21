@@ -3,10 +3,10 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/pydantic_errors"]
+packages = ["src/pydantic_explain"]
 
 [project]
-name = "pydantic-errors"
+name = "pydantic-explain"
 version = "0.0.1"
 description = "Human-readable error messages for Pydantic validation errors."
 readme = "README.md"
@@ -28,9 +28,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/MatthewMckee4/pydantic-errors"
-Repository = "https://github.com/MatthewMckee4/pydantic-errors"
-Issues = "https://github.com/MatthewMckee4/pydantic-errors/issues"
+Homepage = "https://github.com/MatthewMckee4/pydantic-explain"
+Repository = "https://github.com/MatthewMckee4/pydantic-explain"
+Issues = "https://github.com/MatthewMckee4/pydantic-explain/issues"
 
 [dependency-groups]
 dev = [
@@ -75,7 +75,7 @@ ignore = [
 convention = "google"
 
 [tool.ruff.lint.isort]
-known-first-party = ["pydantic_errors", "tests"]
+known-first-party = ["pydantic_explain", "tests"]
 
 [tool.ruff.format]
 quote-style = "double"

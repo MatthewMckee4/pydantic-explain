@@ -5,8 +5,8 @@
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/MatthewMckee4/pydantic-errors.git
-cd pydantic-errors
+git clone https://github.com/MatthewMckee4/pydantic-explain.git
+cd pydantic-explain
 uv sync --all-groups
 pre-commit install
 ```

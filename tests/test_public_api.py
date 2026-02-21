@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-import pydantic_errors
+import pydantic_explain
 
 
 def test_all_exports():
-    assert set(pydantic_errors.__all__) == {
+    assert set(pydantic_explain.__all__) == {
         "ErrorDetail",
         "FormatOptions",
         "explain",
@@ -16,7 +16,7 @@ def test_all_exports():
 
 
 def test_importable():
-    from pydantic_errors import (
+    from pydantic_explain import (
         ErrorDetail,
         FormatOptions,
         explain,
@@ -32,7 +32,7 @@ def test_importable():
 
 
 def test_no_private_leaks():
-    public = {name for name in dir(pydantic_errors) if not name.startswith("_")}
-    expected = set(pydantic_errors.__all__)
+    public = {name for name in dir(pydantic_explain) if not name.startswith("_")}
+    expected = set(pydantic_explain.__all__)
     # All __all__ exports should be in dir()
     assert expected <= public

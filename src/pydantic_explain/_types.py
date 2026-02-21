@@ -1,4 +1,4 @@
-"""Core types for errantic."""
+"""Core types for pydantic-explain."""
 
 from __future__ import annotations
 

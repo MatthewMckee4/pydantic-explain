@@ -1,4 +1,4 @@
-# pydantic-errors
+# pydantic-explain
 
 Human-readable error messages for Pydantic validation errors.
 
@@ -7,14 +7,14 @@ Human-readable error messages for Pydantic validation errors.
 With [uv](https://docs.astral.sh/uv/):
 
 ```bash
-uv add pydantic-errors
+uv add pydantic-explain
 ```
 
 ## Usage
 
 ```python
 from pydantic import BaseModel, ValidationError
-from pydantic_errors import format_errors
+from pydantic_explain import format_errors
 
 
 class Address(BaseModel):
@@ -53,4 +53,4 @@ Validation failed for User with 2 errors
 
 ## Documentation
 
-Full documentation is available at [pydantic-errors docs](https://matthewmckee4.github.io/pydantic-errors/).
+Full documentation is available at [pydantic-explain docs](https://matthewmckee4.github.io/pydantic-explain/).

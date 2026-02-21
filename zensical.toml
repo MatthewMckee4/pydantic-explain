@@ -1,10 +1,10 @@
 [project]
-site_name = "pydantic-errors"
-site_url = "https://matthewmckee4.github.io/pydantic-errors"
+site_name = "pydantic-explain"
+site_url = "https://matthewmckee4.github.io/pydantic-explain"
 site_description = "Human-readable error messages for Pydantic validation errors."
 site_author = "Matthew McKee"
-repo_url = "https://github.com/MatthewMckee4/pydantic-errors"
-repo_name = "MatthewMckee4/pydantic-errors"
+repo_url = "https://github.com/MatthewMckee4/pydantic-explain"
+repo_name = "MatthewMckee4/pydantic-explain"
 
 docs_dir = "docs"
 site_dir = "site"

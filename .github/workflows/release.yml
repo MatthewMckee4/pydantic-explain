@@ -124,7 +124,7 @@ jobs:
 
     environment:
       name: pypi
-      url: https://pypi.org/project/pydantic-errors/
+      url: https://pypi.org/project/pydantic-explain/
 
     permissions:
       id-token: write

@@ -1,3 +1,3 @@
 # API Reference
 
-::: pydantic_errors
+::: pydantic_explain
