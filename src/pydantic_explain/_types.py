@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 
 
 @dataclass(frozen=True, slots=True)
@@ -22,8 +21,8 @@ class ErrorDetail:
     path: str
     message: str
     error_type: str
-    input_value: Any
-    context: dict[str, Any]
+    input_value: object
+    context: dict[str, object]
     url: str
 
 
