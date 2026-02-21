@@ -35,3 +35,5 @@ htmlcov/
 
 # Distribution
 *.tar.gz
+
+.karva_cache/

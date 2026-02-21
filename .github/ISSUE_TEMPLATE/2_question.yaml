@@ -1,0 +1,18 @@
+name: Question
+description: Ask a question about pydantic-errors
+labels: ["question"]
+body:
+  - type: textarea
+    attributes:
+      label: Question
+      description: Describe your question in detail.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Version
+      description: What version of pydantic-errors are you using?
+      placeholder: e.g., 0.0.1
+    validations:
+      required: false

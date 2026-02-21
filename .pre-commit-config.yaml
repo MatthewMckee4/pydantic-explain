@@ -19,13 +19,17 @@ repos:
         args: ["--config", ".markdownlint.yaml"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.0
+    rev: v0.15.1
     hooks:
-      - id: ruff
+      - id: ruff-check
         args: ["--fix"]
       - id: ruff-format
 
-  - repo: https://github.com/astral-sh/ty
-    rev: 0.0.0-alpha.13
+  - repo: local
     hooks:
       - id: ty
+        name: ty
+        entry: uv run ty check
+        language: system
+        types: [python]
+        pass_filenames: false

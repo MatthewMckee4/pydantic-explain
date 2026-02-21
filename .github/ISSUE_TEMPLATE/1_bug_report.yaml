@@ -1,0 +1,28 @@
+name: Bug report
+description: Report an error or unexpected behavior
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report an issue!
+
+        **Before reporting, please make sure to search through
+        [existing issues](https://github.com/MatthewMckee4/pydantic-errors/issues?q=is:issue+is:open+label:bug)
+        (including
+        [closed](https://github.com/MatthewMckee4/pydantic-errors/issues?q=is:issue%20state:closed%20label:bug)).**
+
+  - type: textarea
+    attributes:
+      label: Summary
+      description: |
+        A clear and concise description of the bug, including a minimal reproducible example.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Version
+      description: What version of pydantic-errors are you using?
+      placeholder: e.g., 0.0.1
+    validations:
+      required: false
