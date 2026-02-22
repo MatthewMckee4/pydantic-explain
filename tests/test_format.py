@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import karva
+
 from pydantic_explain import ErrorDetail, FormatOptions, format_error_detail, format_errors
 from pydantic_explain._format import _truncate_repr
 from tests.conftest import User, make_validation_error
@@ -10,35 +12,92 @@ from tests.conftest import User, make_validation_error
 def test_format_errors_header():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = format_errors(error)
-    assert result.startswith("Validation failed for User with 1 error")
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)\
+    """,
+    )
 
 
 def test_format_errors_singular_error_count():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = format_errors(error)
-    assert "1 error" in result
-    assert "1 errors" not in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)\
+    """,
+    )
 
 
 def test_format_errors_plural_error_count():
     error = make_validation_error(User, {"addresses": []})
     result = format_errors(error)
-    assert "3 errors" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 3 errors
+
+          name
+            Field required
+            Got: (missing)
+
+          age
+            Field required
+            Got: (missing)
+
+          email
+            Field required
+            Got: (missing)\
+    """,
+    )
 
 
 def test_format_errors_single_error():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = format_errors(error)
-    assert "name" in result
-    assert "Field required" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)\
+    """,
+    )
 
 
 def test_format_errors_multiple_errors():
     error = make_validation_error(User, {"addresses": []})
     result = format_errors(error)
-    assert "name" in result
-    assert "age" in result
-    assert "email" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 3 errors
+
+          name
+            Field required
+            Got: (missing)
+
+          age
+            Field required
+            Got: (missing)
+
+          email
+            Field required
+            Got: (missing)\
+    """,
+    )
 
 
 def test_format_errors_nested():
@@ -52,37 +111,91 @@ def test_format_errors_nested():
         },
     )
     result = format_errors(error)
-    assert "addresses[0].zipcode" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          addresses[0].zipcode
+            Field required
+            Got: (missing)\
+    """,
+    )
 
 
 def test_format_errors_show_input_true():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = format_errors(error)
-    assert "Got:" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)\
+    """,
+    )
 
 
 def test_format_errors_show_input_false():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = format_errors(error, options=FormatOptions(show_input=False))
-    assert "Got:" not in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required\
+    """,
+    )
 
 
 def test_format_errors_show_url():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = format_errors(error, options=FormatOptions(show_url=True))
-    assert "See:" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+            See: https://errors.pydantic.dev/2.12/v/missing\
+    """,
+    )
 
 
 def test_format_errors_show_error_type():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = format_errors(error, options=FormatOptions(show_error_type=True))
-    assert "[missing]" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required [missing]
+            Got: (missing)\
+    """,
+    )
 
 
 def test_format_errors_missing_input_display():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = format_errors(error)
-    assert "Got: (missing)" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+    """,
+    )
 
 
 def test_format_errors_none_input():
@@ -101,10 +214,16 @@ def test_format_errors_none_input():
 def test_format_errors_default_options():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = format_errors(error)
-    # Default: show_input=True, show_url=False, show_error_type=False
-    assert "Got:" in result
-    assert "See:" not in result
-    assert "[missing]" not in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)\
+    """,
+    )
 
 
 def test_format_errors_special_characters_in_input():
@@ -120,7 +239,16 @@ def test_format_errors_special_characters_in_input():
         },
     )
     result = format_errors(error)
-    assert "Got:" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          addresses[0].zipcode
+            Input should be a valid string
+            Got: ["<script>alert('xss')</script>"]\
+    """,
+    )
 
 
 def test_format_errors_very_long_path():
@@ -134,7 +262,16 @@ def test_format_errors_very_long_path():
         },
     )
     result = format_errors(error)
-    assert "addresses[0].zipcode" in result
+    karva.assert_snapshot(
+        result,
+        inline="""\
+        Validation failed for User with 1 error
+
+          addresses[0].zipcode
+            Field required
+            Got: (missing)
+    """,
+    )
 
 
 def test_format_error_detail_single():
@@ -179,7 +316,7 @@ def test_format_error_detail_with_error_type():
 
 
 def test_truncate_repr_short():
-    assert _truncate_repr("hello", 80) == "'hello'"
+    karva.assert_snapshot(_truncate_repr("hello", 80), inline="'hello'")
 
 
 def test_truncate_repr_exact_limit():
@@ -196,12 +333,11 @@ def test_truncate_repr_over_limit():
 
 
 def test_truncate_repr_under_limit():
-    result = _truncate_repr(42, 80)
-    assert result == "42"
+    karva.assert_snapshot(_truncate_repr(42, 80), inline="42")
 
 
 def test_truncate_repr_empty_string():
-    assert _truncate_repr("", 80) == "''"
+    karva.assert_snapshot(_truncate_repr("", 80), inline="''")
 
 
 def test_truncate_repr_unicode():
@@ -214,7 +350,7 @@ def test_truncate_repr_custom_repr():
         def __repr__(self) -> str:
             return "CustomRepr(x=1)"
 
-    assert _truncate_repr(Custom(), 80) == "CustomRepr(x=1)"
+    karva.assert_snapshot(_truncate_repr(Custom(), 80), inline="CustomRepr(x=1)")
 
 
 def test_truncate_repr_custom_repr_over_limit():

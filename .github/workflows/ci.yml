@@ -94,7 +94,7 @@ jobs:
 
       - run: uv sync --all-groups
 
-      - run: uv run karva test
+      - run: uv run karva test tests
 
   build-docs:
     name: "Build docs"

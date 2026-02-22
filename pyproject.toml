@@ -37,7 +37,7 @@ Issues = "https://github.com/MatthewMckee4/pydantic-explain/issues"
 
 [dependency-groups]
 dev = [
-    "karva",
+    "karva>=0.0.1a4",
     "rich>=13.0",
     "ruff",
     "ty",
@@ -73,7 +73,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["ANN", "D"]
+"tests/**" = ["ANN", "D", "E501"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
