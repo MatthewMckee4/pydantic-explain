@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from io import StringIO
 
 import karva
@@ -10,12 +11,15 @@ from rich.console import Console
 from pydantic_explain import FormatOptions, format_errors_rich
 from tests.conftest import Constrained, User, make_validation_error
 
+_ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+
 
 def _capture_rich(error, **kwargs) -> str:
+    """Capture Rich output with ANSI escape codes stripped."""
     buf = StringIO()
     console = Console(file=buf, force_terminal=True, width=120)
     format_errors_rich(error, console=console, **kwargs)
-    return buf.getvalue()
+    return _ANSI_RE.sub("", buf.getvalue())
 
 
 def test_rich_header():
@@ -23,7 +27,13 @@ def test_rich_header():
     output = _capture_rich(error)
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 1 error\n\n\x1b[1;36m  name\x1b[0m\n    Field required\n    Got: \x1b[33m(missing)\x1b[0m\n",
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+    """,
     )
 
 
@@ -32,7 +42,13 @@ def test_rich_field_path():
     output = _capture_rich(error)
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 1 error\n\n\x1b[1;36m  name\x1b[0m\n    Field required\n    Got: \x1b[33m(missing)\x1b[0m\n",
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+    """,
     )
 
 
@@ -41,7 +57,13 @@ def test_rich_message():
     output = _capture_rich(error)
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 1 error\n\n\x1b[1;36m  name\x1b[0m\n    Field required\n    Got: \x1b[33m(missing)\x1b[0m\n",
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+    """,
     )
 
 
@@ -50,7 +72,13 @@ def test_rich_show_input_default():
     output = _capture_rich(error)
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 1 error\n\n\x1b[1;36m  name\x1b[0m\n    Field required\n    Got: \x1b[33m(missing)\x1b[0m\n",
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+    """,
     )
 
 
@@ -59,7 +87,12 @@ def test_rich_show_input_false():
     output = _capture_rich(error, options=FormatOptions(show_input=False))
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 1 error\n\n\x1b[1;36m  name\x1b[0m\n    Field required\n",
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+    """,
     )
 
 
@@ -68,7 +101,13 @@ def test_rich_show_error_type():
     output = _capture_rich(error, options=FormatOptions(show_error_type=True))
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 1 error\n\n\x1b[1;36m  name\x1b[0m\n    Field required \x1b[2m[missing]\x1b[0m\n    Got: \x1b[33m(missing)\x1b[0m\n",
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required [missing]
+            Got: (missing)
+    """,
     )
 
 
@@ -77,7 +116,14 @@ def test_rich_show_url():
     output = _capture_rich(error, options=FormatOptions(show_url=True))
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 1 error\n\n\x1b[1;36m  name\x1b[0m\n    Field required\n    Got: \x1b[33m(missing)\x1b[0m\n    See: \x1b[4;34mhttps://errors.pydantic.dev/2.12/v/missing\x1b[0m\n",
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+            See: https://errors.pydantic.dev/VERSION/v/missing
+    """,
     )
 
 
@@ -86,7 +132,21 @@ def test_rich_multiple_errors():
     output = _capture_rich(error)
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 3 errors\n\n\x1b[1;36m  name\x1b[0m\n    Field required\n    Got: \x1b[33m(missing)\x1b[0m\n\n\x1b[1;36m  age\x1b[0m\n    Field required\n    Got: \x1b[33m(missing)\x1b[0m\n\n\x1b[1;36m  email\x1b[0m\n    Field required\n    Got: \x1b[33m(missing)\x1b[0m\n",
+        inline="""\
+        Validation failed for User with 3 errors
+
+          name
+            Field required
+            Got: (missing)
+
+          age
+            Field required
+            Got: (missing)
+
+          email
+            Field required
+            Got: (missing)
+    """,
     )
 
 
@@ -103,7 +163,13 @@ def test_rich_nested_path():
     output = _capture_rich(error)
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 1 error\n\n\x1b[1;36m  addresses[0].zipcode\x1b[0m\n    Field required\n    Got: \x1b[33m(missing)\x1b[0m\n",
+        inline="""\
+        Validation failed for User with 1 error
+
+          addresses[0].zipcode
+            Field required
+            Got: (missing)
+    """,
     )
 
 
@@ -112,7 +178,13 @@ def test_rich_non_missing_input():
     output = _capture_rich(error)
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for Constrained with 1 error\n\n\x1b[1;36m  value\x1b[0m\n    Input should be greater than 0\n    Got: \x1b[33m-1\x1b[0m\n",
+        inline="""\
+        Validation failed for Constrained with 1 error
+
+          value
+            Input should be greater than 0
+            Got: -1
+    """,
     )
 
 
@@ -124,5 +196,12 @@ def test_rich_all_options():
     )
     karva.assert_snapshot(
         output,
-        inline="\x1b[1;31mValidation failed\x1b[0m for User with 1 error\n\n\x1b[1;36m  name\x1b[0m\n    Field required \x1b[2m[missing]\x1b[0m\n    Got: \x1b[33m(missing)\x1b[0m\n    See: \x1b[4;34mhttps://errors.pydantic.dev/2.12/v/missing\x1b[0m\n",
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required [missing]
+            Got: (missing)
+            See: https://errors.pydantic.dev/VERSION/v/missing
+    """,
     )

@@ -2,9 +2,22 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
+import karva
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 from pydantic import BaseModel, Field, ValidationError, field_validator
+
+
+@karva.fixture(auto_use=True)
+def _normalise_pydantic_version() -> Generator[None]:
+    """Replace the pydantic version in snapshot URLs so tests survive upgrades."""
+    with karva.snapshot_settings(
+        filters=[(r"errors\.pydantic\.dev/\d+\.\d+", "errors.pydantic.dev/VERSION")]
+    ):
+        yield
 
 
 class Address(BaseModel):

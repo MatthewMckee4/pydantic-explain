@@ -163,7 +163,7 @@ def test_format_errors_show_url():
           name
             Field required
             Got: (missing)
-            See: https://errors.pydantic.dev/2.12/v/missing\
+            See: https://errors.pydantic.dev/VERSION/v/missing
     """,
     )
 

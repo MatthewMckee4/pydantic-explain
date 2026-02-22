@@ -40,29 +40,29 @@ def test_filter_by_path_pattern():
     karva.assert_json_snapshot(
         [d.to_dict() for d in result],
         inline="""\
-            [
-              {
-                "error_type": "missing",
-                "input_value": {
-                  "city": "y",
-                  "street": "x"
-                },
-                "message": "Field required",
-                "path": "addresses[0].zipcode",
-                "url": "https://errors.pydantic.dev/2.12/v/missing"
-              },
-              {
-                "error_type": "missing",
-                "input_value": {
-                  "city": "b",
-                  "street": "a"
-                },
-                "message": "Field required",
-                "path": "addresses[1].zipcode",
-                "url": "https://errors.pydantic.dev/2.12/v/missing"
-              }
-            ]
-        """,
+        [
+          {
+            "error_type": "missing",
+            "input_value": {
+              "city": "y",
+              "street": "x"
+            },
+            "message": "Field required",
+            "path": "addresses[0].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "city": "b",
+              "street": "a"
+            },
+            "message": "Field required",
+            "path": "addresses[1].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          }
+        ]
+    """,
     )
 
 
@@ -72,19 +72,19 @@ def test_filter_by_path_pattern_specific():
     karva.assert_json_snapshot(
         [d.to_dict() for d in result],
         inline="""\
-            [
-              {
-                "error_type": "missing",
-                "input_value": {
-                  "city": "y",
-                  "street": "x"
-                },
-                "message": "Field required",
-                "path": "addresses[0].zipcode",
-                "url": "https://errors.pydantic.dev/2.12/v/missing"
-              }
-            ]
-        """,
+        [
+          {
+            "error_type": "missing",
+            "input_value": {
+              "city": "y",
+              "street": "x"
+            },
+            "message": "Field required",
+            "path": "addresses[0].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          }
+        ]
+    """,
     )
 
 
@@ -94,27 +94,27 @@ def test_filter_combined():
     karva.assert_json_snapshot(
         [d.to_dict() for d in result],
         inline="""\
-            [
-              {
-                "error_type": "missing",
-                "input_value": {
-                  "addresses": [
-                    {
-                      "city": "y",
-                      "street": "x"
-                    },
-                    {
-                      "city": "b",
-                      "street": "a"
-                    }
-                  ]
+        [
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": [
+                {
+                  "city": "y",
+                  "street": "x"
                 },
-                "message": "Field required",
-                "path": "name",
-                "url": "https://errors.pydantic.dev/2.12/v/missing"
-              }
-            ]
-        """,
+                {
+                  "city": "b",
+                  "street": "a"
+                }
+              ]
+            },
+            "message": "Field required",
+            "path": "name",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          }
+        ]
+    """,
     )
 
 
@@ -130,91 +130,91 @@ def test_group_errors():
     karva.assert_json_snapshot(
         {k: [d.to_dict() for d in v] for k, v in groups.items()},
         inline="""\
+        {
+          "addresses": [
             {
-              "addresses": [
-                {
-                  "error_type": "missing",
-                  "input_value": {
+              "error_type": "missing",
+              "input_value": {
+                "city": "y",
+                "street": "x"
+              },
+              "message": "Field required",
+              "path": "addresses[0].zipcode",
+              "url": "https://errors.pydantic.dev/VERSION/v/missing"
+            },
+            {
+              "error_type": "missing",
+              "input_value": {
+                "city": "b",
+                "street": "a"
+              },
+              "message": "Field required",
+              "path": "addresses[1].zipcode",
+              "url": "https://errors.pydantic.dev/VERSION/v/missing"
+            }
+          ],
+          "age": [
+            {
+              "error_type": "missing",
+              "input_value": {
+                "addresses": [
+                  {
                     "city": "y",
                     "street": "x"
                   },
-                  "message": "Field required",
-                  "path": "addresses[0].zipcode",
-                  "url": "https://errors.pydantic.dev/2.12/v/missing"
-                },
-                {
-                  "error_type": "missing",
-                  "input_value": {
+                  {
                     "city": "b",
                     "street": "a"
-                  },
-                  "message": "Field required",
-                  "path": "addresses[1].zipcode",
-                  "url": "https://errors.pydantic.dev/2.12/v/missing"
-                }
-              ],
-              "age": [
-                {
-                  "error_type": "missing",
-                  "input_value": {
-                    "addresses": [
-                      {
-                        "city": "y",
-                        "street": "x"
-                      },
-                      {
-                        "city": "b",
-                        "street": "a"
-                      }
-                    ]
-                  },
-                  "message": "Field required",
-                  "path": "age",
-                  "url": "https://errors.pydantic.dev/2.12/v/missing"
-                }
-              ],
-              "email": [
-                {
-                  "error_type": "missing",
-                  "input_value": {
-                    "addresses": [
-                      {
-                        "city": "y",
-                        "street": "x"
-                      },
-                      {
-                        "city": "b",
-                        "street": "a"
-                      }
-                    ]
-                  },
-                  "message": "Field required",
-                  "path": "email",
-                  "url": "https://errors.pydantic.dev/2.12/v/missing"
-                }
-              ],
-              "name": [
-                {
-                  "error_type": "missing",
-                  "input_value": {
-                    "addresses": [
-                      {
-                        "city": "y",
-                        "street": "x"
-                      },
-                      {
-                        "city": "b",
-                        "street": "a"
-                      }
-                    ]
-                  },
-                  "message": "Field required",
-                  "path": "name",
-                  "url": "https://errors.pydantic.dev/2.12/v/missing"
-                }
-              ]
+                  }
+                ]
+              },
+              "message": "Field required",
+              "path": "age",
+              "url": "https://errors.pydantic.dev/VERSION/v/missing"
             }
-        """,
+          ],
+          "email": [
+            {
+              "error_type": "missing",
+              "input_value": {
+                "addresses": [
+                  {
+                    "city": "y",
+                    "street": "x"
+                  },
+                  {
+                    "city": "b",
+                    "street": "a"
+                  }
+                ]
+              },
+              "message": "Field required",
+              "path": "email",
+              "url": "https://errors.pydantic.dev/VERSION/v/missing"
+            }
+          ],
+          "name": [
+            {
+              "error_type": "missing",
+              "input_value": {
+                "addresses": [
+                  {
+                    "city": "y",
+                    "street": "x"
+                  },
+                  {
+                    "city": "b",
+                    "street": "a"
+                  }
+                ]
+              },
+              "message": "Field required",
+              "path": "name",
+              "url": "https://errors.pydantic.dev/VERSION/v/missing"
+            }
+          ]
+        }
+    """,
     )
 
 
@@ -225,22 +225,22 @@ def test_group_errors_single_field():
     karva.assert_json_snapshot(
         {k: [d.to_dict() for d in v] for k, v in groups.items()},
         inline="""\
+        {
+          "name": [
             {
-              "name": [
-                {
-                  "error_type": "missing",
-                  "input_value": {
-                    "addresses": [],
-                    "age": 30,
-                    "email": "a@b.com"
-                  },
-                  "message": "Field required",
-                  "path": "name",
-                  "url": "https://errors.pydantic.dev/2.12/v/missing"
-                }
-              ]
+              "error_type": "missing",
+              "input_value": {
+                "addresses": [],
+                "age": 30,
+                "email": "a@b.com"
+              },
+              "message": "Field required",
+              "path": "name",
+              "url": "https://errors.pydantic.dev/VERSION/v/missing"
             }
-        """,
+          ]
+        }
+    """,
     )
 
 

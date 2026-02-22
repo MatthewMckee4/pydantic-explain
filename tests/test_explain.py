@@ -66,7 +66,7 @@ def test_explain_single_missing_field():
             },
             "message": "Field required",
             "path": "name",
-            "url": "https://errors.pydantic.dev/2.12/v/missing"
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
           }
         ]
     """,
@@ -87,7 +87,7 @@ def test_explain_multiple_errors():
             },
             "message": "Field required",
             "path": "name",
-            "url": "https://errors.pydantic.dev/2.12/v/missing"
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
           },
           {
             "error_type": "missing",
@@ -96,7 +96,7 @@ def test_explain_multiple_errors():
             },
             "message": "Field required",
             "path": "age",
-            "url": "https://errors.pydantic.dev/2.12/v/missing"
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
           },
           {
             "error_type": "missing",
@@ -105,7 +105,7 @@ def test_explain_multiple_errors():
             },
             "message": "Field required",
             "path": "email",
-            "url": "https://errors.pydantic.dev/2.12/v/missing"
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
           }
         ]
     """,
@@ -135,7 +135,7 @@ def test_explain_nested_path():
             },
             "message": "Field required",
             "path": "addresses[0].zipcode",
-            "url": "https://errors.pydantic.dev/2.12/v/missing"
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
           }
         ]
     """,
@@ -187,7 +187,7 @@ def test_explain_context_present():
             "input_value": -1,
             "message": "Input should be greater than 0",
             "path": "value",
-            "url": "https://errors.pydantic.dev/2.12/v/greater_than"
+            "url": "https://errors.pydantic.dev/VERSION/v/greater_than"
           }
         ]
     """,
@@ -224,7 +224,7 @@ def test_explain_preserves_input_value():
             ],
             "message": "Input should be a valid string",
             "path": "addresses[0].zipcode",
-            "url": "https://errors.pydantic.dev/2.12/v/string_type"
+            "url": "https://errors.pydantic.dev/VERSION/v/string_type"
           }
         ]
     """,
@@ -254,7 +254,7 @@ def test_explain_deep_nesting():
             "input_value": 123,
             "message": "Input should be a valid string",
             "path": "middle.inner.code",
-            "url": "https://errors.pydantic.dev/2.12/v/string_type"
+            "url": "https://errors.pydantic.dev/VERSION/v/string_type"
           }
         ]
     """,
