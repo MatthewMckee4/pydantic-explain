@@ -15,7 +15,12 @@ def test_format_errors_header():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -25,7 +30,12 @@ def test_format_errors_singular_error_count():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -35,7 +45,20 @@ def test_format_errors_plural_error_count():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 3 errors
+
+          name
+            Field required
+            Got: (missing)
+
+          age
+            Field required
+            Got: (missing)
+
+          email
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -45,7 +68,12 @@ def test_format_errors_single_error():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -55,7 +83,20 @@ def test_format_errors_multiple_errors():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 3 errors
+
+          name
+            Field required
+            Got: (missing)
+
+          age
+            Field required
+            Got: (missing)
+
+          email
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -73,7 +114,12 @@ def test_format_errors_nested():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          addresses[0].zipcode
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -83,7 +129,12 @@ def test_format_errors_show_input_true():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -93,7 +144,11 @@ def test_format_errors_show_input_false():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          name
+            Field required
+        """,
     )
 
 
@@ -103,7 +158,13 @@ def test_format_errors_show_url():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+            See: https://errors.pydantic.dev/VERSION/v/missing
+        """,
     )
 
 
@@ -113,7 +174,12 @@ def test_format_errors_show_error_type():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          name
+            Field required [missing]
+            Got: (missing)
+        """,
     )
 
 
@@ -123,7 +189,12 @@ def test_format_errors_missing_input_display():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -146,7 +217,12 @@ def test_format_errors_default_options():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -166,7 +242,12 @@ def test_format_errors_special_characters_in_input():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          addresses[0].zipcode
+            Input should be a valid string
+            Got: ["<script>alert('xss')</script>"]
+        """,
     )
 
 
@@ -184,7 +265,12 @@ def test_format_errors_very_long_path():
     karva.assert_snapshot(
         result,
         inline="""\
-    """,
+        Validation failed for User with 1 error
+
+          addresses[0].zipcode
+            Field required
+            Got: (missing)
+        """,
     )
 
 
@@ -230,7 +316,7 @@ def test_format_error_detail_with_error_type():
 
 
 def test_truncate_repr_short():
-    karva.assert_snapshot(_truncate_repr("hello", 80), inline="")
+    karva.assert_snapshot(_truncate_repr("hello", 80), inline="'hello'")
 
 
 def test_truncate_repr_exact_limit():
@@ -247,11 +333,11 @@ def test_truncate_repr_over_limit():
 
 
 def test_truncate_repr_under_limit():
-    karva.assert_snapshot(_truncate_repr(42, 80), inline="")
+    karva.assert_snapshot(_truncate_repr(42, 80), inline="42")
 
 
 def test_truncate_repr_empty_string():
-    karva.assert_snapshot(_truncate_repr("", 80), inline="")
+    karva.assert_snapshot(_truncate_repr("", 80), inline="''")
 
 
 def test_truncate_repr_unicode():
@@ -264,7 +350,7 @@ def test_truncate_repr_custom_repr():
         def __repr__(self) -> str:
             return "CustomRepr(x=1)"
 
-    karva.assert_snapshot(_truncate_repr(Custom(), 80), inline="")
+    karva.assert_snapshot(_truncate_repr(Custom(), 80), inline="CustomRepr(x=1)")
 
 
 def test_truncate_repr_custom_repr_over_limit():
