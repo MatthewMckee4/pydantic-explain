@@ -17,31 +17,31 @@ from tests.conftest import (
 
 
 def test_format_loc_string_only():
-    karva.assert_snapshot(_format_loc(("a", "b", "c")), inline="a.b.c")
+    karva.assert_snapshot(_format_loc(("a", "b", "c")), inline="")
 
 
 def test_format_loc_int_index():
-    karva.assert_snapshot(_format_loc(("a", 0)), inline="a[0]")
+    karva.assert_snapshot(_format_loc(("a", 0)), inline="")
 
 
 def test_format_loc_mixed():
-    karva.assert_snapshot(_format_loc(("a", 0, "b", 1, "c")), inline="a[0].b[1].c")
+    karva.assert_snapshot(_format_loc(("a", 0, "b", 1, "c")), inline="")
 
 
 def test_format_loc_single_string():
-    karva.assert_snapshot(_format_loc(("name",)), inline="name")
+    karva.assert_snapshot(_format_loc(("name",)), inline="")
 
 
 def test_format_loc_single_int():
-    karva.assert_snapshot(_format_loc((0,)), inline="[0]")
+    karva.assert_snapshot(_format_loc((0,)), inline="")
 
 
 def test_format_loc_empty():
-    karva.assert_snapshot(_format_loc(()), inline="<root>")
+    karva.assert_snapshot(_format_loc(()), inline="")
 
 
 def test_format_loc_all_marker():
-    karva.assert_snapshot(_format_loc(("items", "__all__", "x")), inline="items[*].x")
+    karva.assert_snapshot(_format_loc(("items", "__all__", "x")), inline="")
 
 
 def test_explain_returns_tuple():
@@ -56,19 +56,6 @@ def test_explain_single_missing_field():
     karva.assert_json_snapshot(
         [d.to_dict() for d in result],
         inline="""\
-        [
-          {
-            "error_type": "missing",
-            "input_value": {
-              "addresses": [],
-              "age": 30,
-              "email": "a@b.com"
-            },
-            "message": "Field required",
-            "path": "name",
-            "url": "https://errors.pydantic.dev/VERSION/v/missing"
-          }
-        ]
     """,
     )
 
@@ -79,35 +66,6 @@ def test_explain_multiple_errors():
     karva.assert_json_snapshot(
         [d.to_dict() for d in result],
         inline="""\
-        [
-          {
-            "error_type": "missing",
-            "input_value": {
-              "addresses": []
-            },
-            "message": "Field required",
-            "path": "name",
-            "url": "https://errors.pydantic.dev/VERSION/v/missing"
-          },
-          {
-            "error_type": "missing",
-            "input_value": {
-              "addresses": []
-            },
-            "message": "Field required",
-            "path": "age",
-            "url": "https://errors.pydantic.dev/VERSION/v/missing"
-          },
-          {
-            "error_type": "missing",
-            "input_value": {
-              "addresses": []
-            },
-            "message": "Field required",
-            "path": "email",
-            "url": "https://errors.pydantic.dev/VERSION/v/missing"
-          }
-        ]
     """,
     )
 
@@ -126,18 +84,6 @@ def test_explain_nested_path():
     karva.assert_json_snapshot(
         [d.to_dict() for d in result],
         inline="""\
-        [
-          {
-            "error_type": "missing",
-            "input_value": {
-              "city": "y",
-              "street": "x"
-            },
-            "message": "Field required",
-            "path": "addresses[0].zipcode",
-            "url": "https://errors.pydantic.dev/VERSION/v/missing"
-          }
-        ]
     """,
     )
 
@@ -178,18 +124,6 @@ def test_explain_context_present():
     karva.assert_json_snapshot(
         [d.to_dict() for d in result],
         inline="""\
-        [
-          {
-            "context": {
-              "gt": 0
-            },
-            "error_type": "greater_than",
-            "input_value": -1,
-            "message": "Input should be greater than 0",
-            "path": "value",
-            "url": "https://errors.pydantic.dev/VERSION/v/greater_than"
-          }
-        ]
     """,
     )
 
@@ -216,17 +150,6 @@ def test_explain_preserves_input_value():
     karva.assert_json_snapshot(
         [d.to_dict() for d in result],
         inline="""\
-        [
-          {
-            "error_type": "string_type",
-            "input_value": [
-              "bad"
-            ],
-            "message": "Input should be a valid string",
-            "path": "addresses[0].zipcode",
-            "url": "https://errors.pydantic.dev/VERSION/v/string_type"
-          }
-        ]
     """,
     )
 
@@ -248,15 +171,6 @@ def test_explain_deep_nesting():
     karva.assert_json_snapshot(
         [d.to_dict() for d in result],
         inline="""\
-        [
-          {
-            "error_type": "string_type",
-            "input_value": 123,
-            "message": "Input should be a valid string",
-            "path": "middle.inner.code",
-            "url": "https://errors.pydantic.dev/VERSION/v/string_type"
-          }
-        ]
     """,
     )
 

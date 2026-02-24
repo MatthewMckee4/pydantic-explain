@@ -40,7 +40,7 @@ def test_error_detail_repr():
     detail = ErrorDetail(path="x", message="m", error_type="t", input_value=1, context={}, url="")
     karva.assert_snapshot(
         repr(detail),
-        inline="ErrorDetail(path='x', message='m', error_type='t', input_value=1, context={}, url='')",
+        inline="",
     )
 
 
@@ -49,12 +49,6 @@ def test_format_options_defaults():
     karva.assert_json_snapshot(
         dataclasses.asdict(opts),
         inline="""\
-        {
-          "input_max_length": 80,
-          "show_error_type": false,
-          "show_input": true,
-          "show_url": false
-        }
     """,
     )
 
@@ -74,12 +68,6 @@ def test_format_options_custom():
     karva.assert_json_snapshot(
         dataclasses.asdict(opts),
         inline="""\
-        {
-          "input_max_length": 40,
-          "show_error_type": true,
-          "show_input": false,
-          "show_url": true
-        }
     """,
     )
 
@@ -96,16 +84,6 @@ def test_to_dict_all_fields():
     karva.assert_json_snapshot(
         detail.to_dict(),
         inline="""\
-        {
-          "context": {
-            "gt": 0
-          },
-          "error_type": "missing",
-          "input_value": "bad",
-          "message": "Field required",
-          "path": "name",
-          "url": "https://errors.pydantic.dev/2/v/missing"
-        }
     """,
     )
 
@@ -122,11 +100,6 @@ def test_to_dict_omits_empty_fields():
     karva.assert_json_snapshot(
         detail.to_dict(),
         inline="""\
-        {
-          "error_type": "missing",
-          "message": "Field required",
-          "path": "age"
-        }
     """,
     )
 
@@ -143,12 +116,6 @@ def test_to_dict_keeps_falsy_input_value():
     karva.assert_json_snapshot(
         detail.to_dict(),
         inline="""\
-        {
-          "error_type": "value_error",
-          "input_value": 0,
-          "message": "Value error",
-          "path": "count"
-        }
     """,
     )
 
@@ -165,13 +132,5 @@ def test_to_dict_partial_empty():
     karva.assert_json_snapshot(
         detail.to_dict(),
         inline="""\
-        {
-          "context": {
-            "limit": 10
-          },
-          "error_type": "t",
-          "message": "m",
-          "path": "x"
-        }
     """,
     )

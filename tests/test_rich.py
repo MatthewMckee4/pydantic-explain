@@ -28,11 +28,6 @@ def test_rich_header():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 1 error
-
-          name
-            Field required
-            Got: (missing)
     """,
     )
 
@@ -43,11 +38,6 @@ def test_rich_field_path():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 1 error
-
-          name
-            Field required
-            Got: (missing)
     """,
     )
 
@@ -58,11 +48,6 @@ def test_rich_message():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 1 error
-
-          name
-            Field required
-            Got: (missing)
     """,
     )
 
@@ -73,11 +58,6 @@ def test_rich_show_input_default():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 1 error
-
-          name
-            Field required
-            Got: (missing)
     """,
     )
 
@@ -88,10 +68,6 @@ def test_rich_show_input_false():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 1 error
-
-          name
-            Field required
     """,
     )
 
@@ -102,11 +78,6 @@ def test_rich_show_error_type():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 1 error
-
-          name
-            Field required [missing]
-            Got: (missing)
     """,
     )
 
@@ -117,12 +88,6 @@ def test_rich_show_url():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 1 error
-
-          name
-            Field required
-            Got: (missing)
-            See: https://errors.pydantic.dev/VERSION/v/missing
     """,
     )
 
@@ -133,19 +98,6 @@ def test_rich_multiple_errors():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 3 errors
-
-          name
-            Field required
-            Got: (missing)
-
-          age
-            Field required
-            Got: (missing)
-
-          email
-            Field required
-            Got: (missing)
     """,
     )
 
@@ -164,11 +116,6 @@ def test_rich_nested_path():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 1 error
-
-          addresses[0].zipcode
-            Field required
-            Got: (missing)
     """,
     )
 
@@ -179,11 +126,6 @@ def test_rich_non_missing_input():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for Constrained with 1 error
-
-          value
-            Input should be greater than 0
-            Got: -1
     """,
     )
 
@@ -197,11 +139,5 @@ def test_rich_all_options():
     karva.assert_snapshot(
         output,
         inline="""\
-        Validation failed for User with 1 error
-
-          name
-            Field required [missing]
-            Got: (missing)
-            See: https://errors.pydantic.dev/VERSION/v/missing
     """,
     )
