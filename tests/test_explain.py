@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import karva
+
 from pydantic_explain import explain
 from pydantic_explain._explain import _format_loc
 from tests.conftest import (
@@ -15,31 +17,31 @@ from tests.conftest import (
 
 
 def test_format_loc_string_only():
-    assert _format_loc(("a", "b", "c")) == "a.b.c"
+    karva.assert_snapshot(_format_loc(("a", "b", "c")), inline="a.b.c")
 
 
 def test_format_loc_int_index():
-    assert _format_loc(("a", 0)) == "a[0]"
+    karva.assert_snapshot(_format_loc(("a", 0)), inline="a[0]")
 
 
 def test_format_loc_mixed():
-    assert _format_loc(("a", 0, "b", 1, "c")) == "a[0].b[1].c"
+    karva.assert_snapshot(_format_loc(("a", 0, "b", 1, "c")), inline="a[0].b[1].c")
 
 
 def test_format_loc_single_string():
-    assert _format_loc(("name",)) == "name"
+    karva.assert_snapshot(_format_loc(("name",)), inline="name")
 
 
 def test_format_loc_single_int():
-    assert _format_loc((0,)) == "[0]"
+    karva.assert_snapshot(_format_loc((0,)), inline="[0]")
 
 
 def test_format_loc_empty():
-    assert _format_loc(()) == "<root>"
+    karva.assert_snapshot(_format_loc(()), inline="<root>")
 
 
 def test_format_loc_all_marker():
-    assert _format_loc(("items", "__all__", "x")) == "items[*].x"
+    karva.assert_snapshot(_format_loc(("items", "__all__", "x")), inline="items[*].x")
 
 
 def test_explain_returns_tuple():
@@ -51,19 +53,63 @@ def test_explain_returns_tuple():
 def test_explain_single_missing_field():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = explain(error)
-    assert len(result) == 1
-    detail = result[0]
-    assert detail.path == "name"
-    assert detail.error_type == "missing"
-    assert detail.message == "Field required"
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": [],
+              "age": 30,
+              "email": "a@b.com"
+            },
+            "message": "Field required",
+            "path": "name",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          }
+        ]
+        """,
+    )
 
 
 def test_explain_multiple_errors():
     error = make_validation_error(User, {"addresses": []})
     result = explain(error)
-    assert len(result) == 3
-    paths = {d.path for d in result}
-    assert paths == {"name", "age", "email"}
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": []
+            },
+            "message": "Field required",
+            "path": "name",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": []
+            },
+            "message": "Field required",
+            "path": "age",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": []
+            },
+            "message": "Field required",
+            "path": "email",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          }
+        ]
+        """,
+    )
 
 
 def test_explain_nested_path():
@@ -77,8 +123,23 @@ def test_explain_nested_path():
         },
     )
     result = explain(error)
-    assert len(result) == 1
-    assert result[0].path == "addresses[0].zipcode"
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "error_type": "missing",
+            "input_value": {
+              "city": "y",
+              "street": "x"
+            },
+            "message": "Field required",
+            "path": "addresses[0].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          }
+        ]
+        """,
+    )
 
 
 def test_explain_list_index_path():
@@ -114,8 +175,23 @@ def test_explain_url_preserved():
 def test_explain_context_present():
     error = make_validation_error(Constrained, {"value": -1})
     result = explain(error)
-    assert len(result) == 1
-    assert result[0].context.get("gt") == 0
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "context": {
+              "gt": 0
+            },
+            "error_type": "greater_than",
+            "input_value": -1,
+            "message": "Input should be greater than 0",
+            "path": "value",
+            "url": "https://errors.pydantic.dev/VERSION/v/greater_than"
+          }
+        ]
+        """,
+    )
 
 
 def test_explain_context_absent():
@@ -137,7 +213,22 @@ def test_explain_preserves_input_value():
         },
     )
     result = explain(error)
-    assert result[0].input_value == ["bad"]
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "error_type": "string_type",
+            "input_value": [
+              "bad"
+            ],
+            "message": "Input should be a valid string",
+            "path": "addresses[0].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/string_type"
+          }
+        ]
+        """,
+    )
 
 
 def test_explain_is_immutable():
@@ -154,8 +245,20 @@ def test_explain_is_immutable():
 def test_explain_deep_nesting():
     error = make_validation_error(Outer, {"middle": {"inner": {"code": 123}}})
     result = explain(error)
-    assert len(result) == 1
-    assert result[0].path == "middle.inner.code"
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "error_type": "string_type",
+            "input_value": 123,
+            "message": "Input should be a valid string",
+            "path": "middle.inner.code",
+            "url": "https://errors.pydantic.dev/VERSION/v/string_type"
+          }
+        ]
+        """,
+    )
 
 
 def test_explain_union_type_error():

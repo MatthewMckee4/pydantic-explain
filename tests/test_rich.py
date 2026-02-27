@@ -2,73 +2,152 @@
 
 from __future__ import annotations
 
+import re
 from io import StringIO
 
+import karva
 from rich.console import Console
 
 from pydantic_explain import FormatOptions, format_errors_rich
 from tests.conftest import Constrained, User, make_validation_error
 
+_ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+
 
 def _capture_rich(error, **kwargs) -> str:
+    """Capture Rich output with ANSI escape codes stripped."""
     buf = StringIO()
     console = Console(file=buf, force_terminal=True, width=120)
     format_errors_rich(error, console=console, **kwargs)
-    return buf.getvalue()
+    return _ANSI_RE.sub("", buf.getvalue())
 
 
 def test_rich_header():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     output = _capture_rich(error)
-    assert "Validation failed" in output
-    assert "User" in output
-    assert "1 error" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
+    )
 
 
 def test_rich_field_path():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     output = _capture_rich(error)
-    assert "name" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
+    )
 
 
 def test_rich_message():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     output = _capture_rich(error)
-    assert "Field required" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
+    )
 
 
 def test_rich_show_input_default():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     output = _capture_rich(error)
-    assert "Got:" in output
-    assert "(missing)" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+        """,
+    )
 
 
 def test_rich_show_input_false():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     output = _capture_rich(error, options=FormatOptions(show_input=False))
-    assert "Got:" not in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+        """,
+    )
 
 
 def test_rich_show_error_type():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     output = _capture_rich(error, options=FormatOptions(show_error_type=True))
-    assert "[missing]" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required [missing]
+            Got: (missing)
+        """,
+    )
 
 
 def test_rich_show_url():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     output = _capture_rich(error, options=FormatOptions(show_url=True))
-    assert "See:" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required
+            Got: (missing)
+            See: https://errors.pydantic.dev/VERSION/v/missing
+        """,
+    )
 
 
 def test_rich_multiple_errors():
     error = make_validation_error(User, {"addresses": []})
     output = _capture_rich(error)
-    assert "3 errors" in output
-    assert "name" in output
-    assert "age" in output
-    assert "email" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 3 errors
+
+          name
+            Field required
+            Got: (missing)
+
+          age
+            Field required
+            Got: (missing)
+
+          email
+            Field required
+            Got: (missing)
+        """,
+    )
 
 
 def test_rich_nested_path():
@@ -82,14 +161,31 @@ def test_rich_nested_path():
         },
     )
     output = _capture_rich(error)
-    assert "addresses[0].zipcode" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 1 error
+
+          addresses[0].zipcode
+            Field required
+            Got: (missing)
+        """,
+    )
 
 
 def test_rich_non_missing_input():
     error = make_validation_error(Constrained, {"value": -1})
     output = _capture_rich(error)
-    assert "Got:" in output
-    assert "-1" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for Constrained with 1 error
+
+          value
+            Input should be greater than 0
+            Got: -1
+        """,
+    )
 
 
 def test_rich_all_options():
@@ -98,6 +194,14 @@ def test_rich_all_options():
         error,
         options=FormatOptions(show_input=True, show_url=True, show_error_type=True),
     )
-    assert "Got:" in output
-    assert "See:" in output
-    assert "[missing]" in output
+    karva.assert_snapshot(
+        output,
+        inline="""\
+        Validation failed for User with 1 error
+
+          name
+            Field required [missing]
+            Got: (missing)
+            See: https://errors.pydantic.dev/VERSION/v/missing
+        """,
+    )

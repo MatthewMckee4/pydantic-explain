@@ -111,22 +111,22 @@ wheels = [
 
 [[package]]
 name = "karva"
-version = "0.0.1a3"
+version = "0.0.1a4"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/b8/f1/59ec6c10f3ba42d8bce54a06ddae95a9542f57513cefbf30b4994d49c4eb/karva-0.0.1a3.tar.gz", hash = "sha256:8396b3f51a71d8691fa7b13608b36dbfe72ba0c0c38fbaa3adb3ce242033ac9d", size = 137092, upload-time = "2026-02-07T17:49:30.652Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/83/66/ead8f5c5ed1f4e6c4b002e1b391274c80ddd083b97c5887698dff521ffbc/karva-0.0.1a4.tar.gz", hash = "sha256:7a47c3b2abfea9e0ac1a3041e1cf758b671a044d9a27bf63775540cae4ec596a", size = 173486, upload-time = "2026-02-21T14:53:29.688Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/69/fa/5876eb33c11241337c0a3e0d3c2cedf161db66266a1bc5f9c73829525fd6/karva-0.0.1a3-cp310-abi3-macosx_10_12_x86_64.whl", hash = "sha256:da68f03aa2f1775125ba390176d035bbf0f5017c50ce86afffcccbab7120a9e9", size = 3599252, upload-time = "2026-02-07T17:49:27.998Z" },
-    { url = "https://files.pythonhosted.org/packages/d3/57/81564b1e0153f666b11451157ffc9a2de45be9784f05d6e6da334164a0ca/karva-0.0.1a3-cp310-abi3-macosx_11_0_arm64.whl", hash = "sha256:486c6486563edc80d730f654a6b9fa5aaaac145bacd5de56a2b76599f22e2c7b", size = 3502832, upload-time = "2026-02-07T17:49:31.45Z" },
-    { url = "https://files.pythonhosted.org/packages/01/1f/8d806c0b7ffbcc22ef6fdbbd68e8f5d2db93676829d89afc3135007ac1f0/karva-0.0.1a3-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:602dbeeb98a847b72f328739db633817af9ea25eb9c98d62630ce7f7c6afa38e", size = 3814934, upload-time = "2026-02-07T17:49:26.27Z" },
-    { url = "https://files.pythonhosted.org/packages/97/55/2c180c4e25ddbf7ed39ab10a3971eec78a9d59541c9c5cb832d80b6cc3f3/karva-0.0.1a3-cp310-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:1c09e5afd9f62c0780d9997e33e2f0a16ca4446c9389b9c7612d35a46ff7a469", size = 3718050, upload-time = "2026-02-07T17:49:24.856Z" },
-    { url = "https://files.pythonhosted.org/packages/40/43/6b43b42ff3fecb804b5c5e498ddaa9a08df48f2855928207e35e7e0f9090/karva-0.0.1a3-cp310-abi3-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:dffb13c4746b098b840f4cb9f1e2aa8eafec0d098f46dbdb32b1caf2e8466386", size = 4121534, upload-time = "2026-02-07T17:49:16.436Z" },
-    { url = "https://files.pythonhosted.org/packages/53/f8/c9c2b83beabc3245e7c217ebe697be859d49e6c09b6f372931f90f96bf10/karva-0.0.1a3-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c4e55f9ec5a26839f18cd36d7039eda89a96eec46b6cacc17ce636ebfe0e038c", size = 3856058, upload-time = "2026-02-07T17:49:17.729Z" },
-    { url = "https://files.pythonhosted.org/packages/b3/45/ecc69529c30316602e1ca1bb0a81e3e104453838faa362b9a89a431f98ce/karva-0.0.1a3-cp310-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:685f64857fe042ae95499c0b729ba6e10861ebab3a12f1acdd13cd5dc3cefe4a", size = 3990583, upload-time = "2026-02-07T17:49:19.229Z" },
-    { url = "https://files.pythonhosted.org/packages/3a/46/f76deceb77eae643418cf5474af7aa8c591ef05dab556889f3a61cead65e/karva-0.0.1a3-cp310-abi3-musllinux_1_2_armv7l.whl", hash = "sha256:51f7fefb587aedc7e86136aae68e4b572804cf47d6c4fada8085fab14720f370", size = 3984556, upload-time = "2026-02-07T17:49:20.537Z" },
-    { url = "https://files.pythonhosted.org/packages/da/57/f4fd99e066bd9ee8e5afffe1f5e465b2cd7b86276288613b9c1f0776264a/karva-0.0.1a3-cp310-abi3-musllinux_1_2_i686.whl", hash = "sha256:2733e34d29159d35262b51c55c0127e0cb2dfb38abd854e02d458399bfc668cc", size = 4156931, upload-time = "2026-02-07T17:49:22.271Z" },
-    { url = "https://files.pythonhosted.org/packages/1b/6a/c1a56ecb99e77ceb4f89a79a6c3ef937b909e90ef1218042c63f134d3278/karva-0.0.1a3-cp310-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:82504101c83080dc684f8f7692fd891da959476057fde82881e87c4f4ffd70ca", size = 4115757, upload-time = "2026-02-07T17:49:15.057Z" },
-    { url = "https://files.pythonhosted.org/packages/92/ba/32236bcc075025144e9ea53d9310aa87ca46aea6238b55ed8a9d259bb15e/karva-0.0.1a3-cp310-abi3-win32.whl", hash = "sha256:8a249c4fa701de4708f3a48d04cc9bd3d1c4f6f4b3c445d61eac0b88eaee69a1", size = 3015913, upload-time = "2026-02-07T17:49:23.512Z" },
-    { url = "https://files.pythonhosted.org/packages/96/b6/ebabe95cf0baae8b3df8de8e1fe5ee6321aac0888008e4d703b88fdd5074/karva-0.0.1a3-cp310-abi3-win_amd64.whl", hash = "sha256:2ef470acab13dd8948ff172503403167ef798fc2e6fd9a028f806c62278b1e28", size = 3288658, upload-time = "2026-02-07T17:49:29.376Z" },
+    { url = "https://files.pythonhosted.org/packages/1e/dd/22f525082f255cdfc5b56242802fea12c71dfb868477ec62f4f5d39e8e1f/karva-0.0.1a4-cp310-abi3-macosx_10_12_x86_64.whl", hash = "sha256:5dc74092ccb11ce57d35a0a08d1293129d7698aaf5f9b6bd49f92540f787af09", size = 3967122, upload-time = "2026-02-21T14:53:30.663Z" },
+    { url = "https://files.pythonhosted.org/packages/84/cc/46ecdb72c02fc4d2791c6c8c791387634814e63b055cfc3964b47a864a71/karva-0.0.1a4-cp310-abi3-macosx_11_0_arm64.whl", hash = "sha256:6e116c672d3a7a1764a05b3cdc8f1a73658599ffd7bb6b8a7a2d40e142be7f07", size = 3852894, upload-time = "2026-02-21T14:53:36.102Z" },
+    { url = "https://files.pythonhosted.org/packages/ff/8d/2863d1a98df66fd78e6431fe87f94d7781e0541c7686ee329f577bc202d5/karva-0.0.1a4-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b31bdb57287c3e2b42e370c51512777413982b4f1a66e5e1eb54897554f23978", size = 4237567, upload-time = "2026-02-21T14:53:34.909Z" },
+    { url = "https://files.pythonhosted.org/packages/c9/76/3ae0b0e6f0f8726513597ca9516742f4c242409b572b6005b02e7a2f3f2f/karva-0.0.1a4-cp310-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:6eb182dc18cebb8e440c7d300a7431afeab28a152fb30f59d991aafdaa42927a", size = 4150590, upload-time = "2026-02-21T14:53:32.228Z" },
+    { url = "https://files.pythonhosted.org/packages/62/05/56d6221a4c5dfc420749f3d118a83134d11e8a2a4014e1c27a3e75783c07/karva-0.0.1a4-cp310-abi3-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:09cdcb5adfea5b945e578d5bcdf309649a558a9c8c73bfb263ef60cb49a29947", size = 4545442, upload-time = "2026-02-21T14:53:37.673Z" },
+    { url = "https://files.pythonhosted.org/packages/bc/0d/0757b9d5288c2399dc641783e7e133f6274852a461e6834f0e64e51b1a24/karva-0.0.1a4-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9823209006083c5b8cf78aefb57a0d819089e54e139cdda107594d97797ef24d", size = 4287434, upload-time = "2026-02-21T14:53:25.28Z" },
+    { url = "https://files.pythonhosted.org/packages/fc/1c/0b50b7b2e65aac209a57aa6c0ac0cb7827f7379a0c7e7ebff00d75f2a183/karva-0.0.1a4-cp310-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:da3df5da05d5e712d61945bac19b4c12b1cf97bc1bcabf8aa7f822e704a9ffe9", size = 4412885, upload-time = "2026-02-21T14:53:20.969Z" },
+    { url = "https://files.pythonhosted.org/packages/86/b8/c56353adbc3f9a4a5458c0ad7eaec58817ecae59186befa3c2659677cc8a/karva-0.0.1a4-cp310-abi3-musllinux_1_2_armv7l.whl", hash = "sha256:28fc80783919128903ce84a631a01fd0b73801b321415bf48d8e6502327926b4", size = 4420595, upload-time = "2026-02-21T14:53:26.816Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/52/f69b7c5449cf7836d922eb37cc3e3f53bc91b341cc2cba968c3a897d5f32/karva-0.0.1a4-cp310-abi3-musllinux_1_2_i686.whl", hash = "sha256:ee2fee7528050b5445037c0f94b356b6314ceb08f636ab210340f43372a8ff72", size = 4554832, upload-time = "2026-02-21T14:53:22.261Z" },
+    { url = "https://files.pythonhosted.org/packages/ff/5d/9f085210d9098e892c39d779bf2cfb95698c649dad10e4ce90468534cdf3/karva-0.0.1a4-cp310-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:7ea4386fea69de09d8ee676b8a094f8583378a93c1bec569e4324749805fb1ed", size = 4553355, upload-time = "2026-02-21T14:53:28.379Z" },
+    { url = "https://files.pythonhosted.org/packages/8e/6b/d69bc59850a4025cf96d96329d7cfc5b847a22cce84fe93e022a7a3618b3/karva-0.0.1a4-cp310-abi3-win32.whl", hash = "sha256:040d0c88922d3901ce6669199b9c44c9b86b3cb8f7b5289784c9a95729081541", size = 3297629, upload-time = "2026-02-21T14:53:33.536Z" },
+    { url = "https://files.pythonhosted.org/packages/ec/af/97472bfe13ab4c234f1cd335bbf5c06406b0878fb82ed7a86d367824a205/karva-0.0.1a4-cp310-abi3-win_amd64.whl", hash = "sha256:d7c64f878faa7a78484d57ec4b884281230e4107372c81c81a22323599771919", size = 3641032, upload-time = "2026-02-21T14:53:23.731Z" },
 ]
 
 [[package]]
@@ -562,7 +562,7 @@ provides-extras = ["rich"]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "karva" },
+    { name = "karva", specifier = ">=0.0.1a4" },
     { name = "pre-commit" },
     { name = "rich", specifier = ">=13.0" },
     { name = "ruff" },

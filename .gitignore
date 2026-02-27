@@ -19,7 +19,6 @@ Thumbs.db
 # Testing
 .coverage
 htmlcov/
-.pytest_cache/
 
 # Distribution
 *.tar.gz
