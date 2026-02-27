@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import textwrap
+
 import karva
 
 from pydantic_explain import ErrorDetail, FormatOptions, format_error_detail, format_errors
@@ -208,7 +210,14 @@ def test_format_errors_none_input():
         url="",
     )
     result = format_error_detail(detail)
-    assert "Got: None" in result
+    karva.assert_snapshot(
+        textwrap.dedent(result),
+        inline="""\
+        name
+          Input should be a valid string
+          Got: None
+    """,
+    )
 
 
 def test_format_errors_default_options():
@@ -284,9 +293,14 @@ def test_format_error_detail_single():
         url="https://errors.pydantic.dev/2/v/missing",
     )
     result = format_error_detail(detail)
-    assert "  name" in result
-    assert "    Field required" in result
-    assert "    Got: (missing)" in result
+    karva.assert_snapshot(
+        textwrap.dedent(result),
+        inline="""\
+            name
+              Field required
+              Got: (missing)
+        """,
+    )
 
 
 def test_format_error_detail_with_url():
@@ -299,7 +313,15 @@ def test_format_error_detail_with_url():
         url="https://errors.pydantic.dev/2/v/int_parsing",
     )
     result = format_error_detail(detail, options=FormatOptions(show_url=True))
-    assert "See: https://errors.pydantic.dev/2/v/int_parsing" in result
+    karva.assert_snapshot(
+        textwrap.dedent(result),
+        inline="""\
+            age
+              Input should be a valid integer
+              Got: 'abc'
+              See: https://errors.pydantic.dev/2/v/int_parsing
+        """,
+    )
 
 
 def test_format_error_detail_with_error_type():
@@ -312,7 +334,14 @@ def test_format_error_detail_with_error_type():
         url="",
     )
     result = format_error_detail(detail, options=FormatOptions(show_error_type=True))
-    assert "[int_parsing]" in result
+    karva.assert_snapshot(
+        textwrap.dedent(result),
+        inline="""\
+            age
+              Input should be a valid integer [int_parsing]
+              Got: 'abc'
+        """,
+    )
 
 
 def test_truncate_repr_short():
@@ -322,14 +351,19 @@ def test_truncate_repr_short():
 def test_truncate_repr_exact_limit():
     value = "x" * 78  # repr adds quotes: 'xxx...xxx' = 80 chars
     result = _truncate_repr(value, 80)
-    assert len(result) == 80
+    karva.assert_snapshot(
+        result,
+        inline="'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'",
+    )
 
 
 def test_truncate_repr_over_limit():
     value = "x" * 200
     result = _truncate_repr(value, 80)
-    assert len(result) == 80
-    assert result.endswith("...")
+    karva.assert_snapshot(
+        result,
+        inline="'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...",
+    )
 
 
 def test_truncate_repr_under_limit():
@@ -341,8 +375,7 @@ def test_truncate_repr_empty_string():
 
 
 def test_truncate_repr_unicode():
-    result = _truncate_repr("cafe\u0301", 80)
-    assert "caf" in result
+    karva.assert_snapshot(_truncate_repr("cafe\u0301", 80), inline="'café'")
 
 
 def test_truncate_repr_custom_repr():
@@ -358,9 +391,10 @@ def test_truncate_repr_custom_repr_over_limit():
         def __repr__(self) -> str:
             return "V" * 200
 
-    result = _truncate_repr(Verbose(), 80)
-    assert len(result) == 80
-    assert result.endswith("...")
+    karva.assert_snapshot(
+        _truncate_repr(Verbose(), 80),
+        inline="VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV...",
+    )
 
 
 def test_format_error_detail_all_options_enabled():
@@ -376,10 +410,15 @@ def test_format_error_detail_all_options_enabled():
         detail,
         options=FormatOptions(show_input=True, show_url=True, show_error_type=True),
     )
-    assert "  age" in result
-    assert "[int_parsing]" in result
-    assert "Got: 'abc'" in result
-    assert "See: https://errors.pydantic.dev/2/v/int_parsing" in result
+    karva.assert_snapshot(
+        textwrap.dedent(result),
+        inline="""\
+        age
+          Input should be a valid integer [int_parsing]
+          Got: 'abc'
+          See: https://errors.pydantic.dev/2/v/int_parsing
+    """,
+    )
 
 
 def test_format_error_detail_no_options_enabled():
@@ -395,8 +434,10 @@ def test_format_error_detail_no_options_enabled():
         detail,
         options=FormatOptions(show_input=False, show_url=False, show_error_type=False),
     )
-    assert "  name" in result
-    assert "Field required" in result
-    assert "Got:" not in result
-    assert "See:" not in result
-    assert "[missing]" not in result
+    karva.assert_snapshot(
+        textwrap.dedent(result),
+        inline="""\
+        name
+          Field required
+    """,
+    )
