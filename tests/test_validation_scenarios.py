@@ -54,9 +54,6 @@ def _capture_rich(error, **kwargs) -> str:
     return _ANSI_RE.sub("", buf.getvalue())
 
 
-# --- Extra fields forbidden ---
-
-
 def test_explain_extra_forbidden():
     error = make_validation_error(ExtraForbid, {"name": "Alice", "unknown": 1})
     result = explain(error)
@@ -88,9 +85,6 @@ def test_format_extra_forbidden_multiple():
     assert paths == {"a", "b"}
 
 
-# --- Pattern constraints ---
-
-
 def test_explain_pattern_mismatch():
     error = make_validation_error(PatternConstrained, {"code": "invalid"})
     result = explain(error)
@@ -111,9 +105,6 @@ def test_explain_pattern_context():
     error = make_validation_error(PatternConstrained, {"code": "nope"})
     result = explain(error)
     assert "pattern" in result[0].context
-
-
-# --- String length constraints ---
 
 
 def test_explain_string_too_short():
@@ -150,9 +141,6 @@ def test_explain_string_constraint_context():
     error = make_validation_error(StringConstrained, {"short": "a"})
     result = explain(error)
     assert "min_length" in result[0].context
-
-
-# --- Numeric range constraints ---
 
 
 def test_explain_less_than_ge():
@@ -210,9 +198,6 @@ def test_explain_numeric_multiple_errors():
     assert "less_than" in error_types
 
 
-# --- List length constraints ---
-
-
 def test_explain_list_too_short():
     error = make_validation_error(ListConstrained, {"tags": []})
     result = explain(error)
@@ -234,9 +219,6 @@ def test_format_list_constraint():
     assert "too short" in result.lower() or "at least" in result.lower()
 
 
-# --- Enum validation ---
-
-
 def test_explain_invalid_enum():
     error = make_validation_error(EnumModel, {"color": "yellow"})
     result = explain(error)
@@ -249,9 +231,6 @@ def test_format_invalid_enum():
     error = make_validation_error(EnumModel, {"color": "yellow"})
     result = format_errors(error)
     assert "color" in result
-
-
-# --- Literal type validation ---
 
 
 def test_explain_invalid_literal_string():
@@ -284,9 +263,6 @@ def test_format_literal_error():
     assert "[literal_error]" in result
 
 
-# --- Dict field validation ---
-
-
 def test_explain_dict_invalid_value_type():
     error = make_validation_error(DictModel, {"metadata": {"key": "not_an_int"}})
     result = explain(error)
@@ -306,9 +282,6 @@ def test_format_dict_error():
     error = make_validation_error(DictModel, {"metadata": {"a": "bad"}})
     result = format_errors(error)
     assert "metadata" in result
-
-
-# --- Nested list of models ---
 
 
 def test_explain_nested_list_type_error():
@@ -351,9 +324,6 @@ def test_format_nested_list_model():
     assert "matrix[0][0]" in result
 
 
-# --- Alias fields ---
-
-
 def test_explain_alias_missing():
     error = make_validation_error(AliasModel, {})
     result = explain(error)
@@ -367,9 +337,6 @@ def test_explain_alias_wrong_type():
     error = make_validation_error(AliasModel, {"full_name": 123, "user_age": "not_int"})
     result = explain(error)
     assert len(result) >= 1
-
-
-# --- DateTime fields ---
 
 
 def test_explain_invalid_date():
@@ -393,9 +360,6 @@ def test_format_datetime_errors():
     assert "updated" in result
 
 
-# --- Tuple fields ---
-
-
 def test_explain_tuple_wrong_length():
     error = make_validation_error(TupleModel, {"point": [1], "rgb": [1, 2, 3]})
     result = explain(error)
@@ -414,9 +378,6 @@ def test_explain_tuple_too_many():
     assert any("point" in d.path for d in result)
 
 
-# --- Set fields ---
-
-
 def test_explain_set_wrong_item_type():
     error = make_validation_error(SetModel, {"unique_tags": [1, 2], "frozen_ids": [1]})
     result = explain(error)
@@ -427,9 +388,6 @@ def test_explain_frozenset_wrong_item_type():
     error = make_validation_error(SetModel, {"unique_tags": ["a"], "frozen_ids": ["not_int"]})
     result = explain(error)
     assert any("frozen_ids" in d.path for d in result)
-
-
-# --- Deep nesting (5 levels) ---
 
 
 def test_explain_five_level_nesting():
@@ -468,9 +426,6 @@ def test_explain_five_level_missing_intermediate():
     assert "level4" in result[0].path
 
 
-# --- Model validator ---
-
-
 def test_explain_model_validator_error():
     """Model-level validators produce errors at root or model level."""
     error = make_validation_error(ModelValidated, {"password": "abc", "confirm_password": "xyz"})
@@ -483,9 +438,6 @@ def test_format_model_validator():
     error = make_validation_error(ModelValidated, {"password": "abc", "confirm_password": "xyz"})
     result = format_errors(error)
     assert "Passwords do not match" in result
-
-
-# --- Multiple field validators ---
 
 
 def test_explain_multiple_field_validators():
@@ -503,9 +455,6 @@ def test_explain_single_field_validator_passes():
     result = explain(error)
     assert len(result) == 1
     assert result[0].path == "email"
-
-
-# --- Strict mode ---
 
 
 def test_explain_strict_int_from_string():
@@ -530,9 +479,6 @@ def test_explain_strict_multiple_coercion_failures():
     assert len(result) == 3
     paths = {d.path for d in result}
     assert paths == {"count", "name", "active"}
-
-
-# --- Mixed error model (many error types at once) ---
 
 
 def test_explain_mixed_errors():
@@ -647,9 +593,6 @@ def test_count_mixed_errors():
     assert counts["address"] >= 1
 
 
-# --- Filter/group with diverse error types ---
-
-
 def test_filter_by_path_pattern_with_index():
     """Filter errors by index-based path pattern."""
     error = make_validation_error(
@@ -682,9 +625,6 @@ def test_group_nested_model_errors():
     groups = group_errors(all_errors)
     assert "matrix" in groups
     assert "users" in groups
-
-
-# --- Edge cases ---
 
 
 def test_explain_completely_empty_data():
