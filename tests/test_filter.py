@@ -24,14 +24,93 @@ def _get_user_errors():
 def test_filter_by_error_type():
     errors = _get_user_errors()
     result = filter_errors(errors, error_type="missing")
-    assert all(e.error_type == "missing" for e in result)
-    assert len(result) == len(errors)
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": [
+                {
+                  "city": "y",
+                  "street": "x"
+                },
+                {
+                  "city": "b",
+                  "street": "a"
+                }
+              ]
+            },
+            "message": "Field required",
+            "path": "name",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": [
+                {
+                  "city": "y",
+                  "street": "x"
+                },
+                {
+                  "city": "b",
+                  "street": "a"
+                }
+              ]
+            },
+            "message": "Field required",
+            "path": "age",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": [
+                {
+                  "city": "y",
+                  "street": "x"
+                },
+                {
+                  "city": "b",
+                  "street": "a"
+                }
+              ]
+            },
+            "message": "Field required",
+            "path": "email",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "city": "y",
+              "street": "x"
+            },
+            "message": "Field required",
+            "path": "addresses[0].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "city": "b",
+              "street": "a"
+            },
+            "message": "Field required",
+            "path": "addresses[1].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          }
+        ]
+    """,
+    )
 
 
 def test_filter_by_error_type_no_match():
     errors = _get_user_errors()
     result = filter_errors(errors, error_type="int_parsing")
-    assert len(result) == 0
+    karva.assert_json_snapshot([d.to_dict() for d in result], inline="[]")
 
 
 def test_filter_by_path_pattern():
@@ -121,7 +200,87 @@ def test_filter_combined():
 def test_filter_no_criteria():
     errors = _get_user_errors()
     result = filter_errors(errors)
-    assert result == errors
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": [
+                {
+                  "city": "y",
+                  "street": "x"
+                },
+                {
+                  "city": "b",
+                  "street": "a"
+                }
+              ]
+            },
+            "message": "Field required",
+            "path": "name",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": [
+                {
+                  "city": "y",
+                  "street": "x"
+                },
+                {
+                  "city": "b",
+                  "street": "a"
+                }
+              ]
+            },
+            "message": "Field required",
+            "path": "age",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "addresses": [
+                {
+                  "city": "y",
+                  "street": "x"
+                },
+                {
+                  "city": "b",
+                  "street": "a"
+                }
+              ]
+            },
+            "message": "Field required",
+            "path": "email",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "city": "y",
+              "street": "x"
+            },
+            "message": "Field required",
+            "path": "addresses[0].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          },
+          {
+            "error_type": "missing",
+            "input_value": {
+              "city": "b",
+              "street": "a"
+            },
+            "message": "Field required",
+            "path": "addresses[1].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/missing"
+          }
+        ]
+    """,
+    )
 
 
 def test_group_errors():
@@ -276,14 +435,14 @@ def test_count_errors_single():
 
 def test_group_errors_empty():
     groups = group_errors(())
-    assert groups == {}
+    karva.assert_json_snapshot(groups, inline="{}")
 
 
 def test_count_errors_empty():
     counts = count_errors(())
-    assert counts == {}
+    karva.assert_json_snapshot(counts, inline="{}")
 
 
 def test_filter_errors_empty():
     result = filter_errors((), error_type="missing")
-    assert result == ()
+    karva.assert_json_snapshot([d.to_dict() for d in result], inline="[]")

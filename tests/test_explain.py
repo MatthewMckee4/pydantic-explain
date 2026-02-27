@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import karva
 
-from pydantic_explain import explain
+from pydantic_explain import explain, format_errors
 from pydantic_explain._explain import _format_loc
 from tests.conftest import (
     Constrained,
@@ -156,20 +156,34 @@ def test_explain_list_index_path():
         },
     )
     result = explain(error)
-    paths = {d.path for d in result}
-    assert "addresses[1].zipcode" in paths
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "error_type": "string_type",
+            "input_value": [
+              "bad"
+            ],
+            "message": "Input should be a valid string",
+            "path": "addresses[1].zipcode",
+            "url": "https://errors.pydantic.dev/VERSION/v/string_type"
+          }
+        ]
+        """,
+    )
 
 
 def test_explain_error_type_preserved():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = explain(error)
-    assert result[0].error_type == "missing"
+    karva.assert_snapshot(result[0].error_type, inline="missing")
 
 
 def test_explain_url_preserved():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = explain(error)
-    assert result[0].url  # non-empty URL
+    karva.assert_snapshot(result[0].url, inline="https://errors.pydantic.dev/VERSION/v/missing")
 
 
 def test_explain_context_present():
@@ -197,7 +211,7 @@ def test_explain_context_present():
 def test_explain_context_absent():
     error = make_validation_error(User, {"age": 30, "email": "a@b.com", "addresses": []})
     result = explain(error)
-    assert result[0].context == {}
+    karva.assert_json_snapshot(result[0].context, inline="{}")
 
 
 def test_explain_preserves_input_value():
@@ -264,14 +278,38 @@ def test_explain_deep_nesting():
 def test_explain_union_type_error():
     error = make_validation_error(UnionFields, {"value": [], "tag": "ok"})
     result = explain(error)
-    assert len(result) >= 1
-    paths = {d.path for d in result}
-    assert any(p.startswith("value") for p in paths)
+    karva.assert_json_snapshot(
+        [d.to_dict() for d in result],
+        inline="""\
+        [
+          {
+            "error_type": "int_type",
+            "input_value": [],
+            "message": "Input should be a valid integer",
+            "path": "value.int",
+            "url": "https://errors.pydantic.dev/VERSION/v/int_type"
+          },
+          {
+            "error_type": "string_type",
+            "input_value": [],
+            "message": "Input should be a valid string",
+            "path": "value.str",
+            "url": "https://errors.pydantic.dev/VERSION/v/string_type"
+          }
+        ]
+    """,
+    )
 
 
 def test_explain_custom_validator():
     error = make_validation_error(Validated, {"username": "bad user!"})
-    result = explain(error)
-    assert len(result) == 1
-    assert result[0].path == "username"
-    assert "alphanumeric" in result[0].message
+    karva.assert_snapshot(
+        format_errors(error),
+        inline="""\
+        Validation failed for Validated with 1 error
+
+          username
+            Value error, must be alphanumeric
+            Got: 'bad user!'
+    """,
+    )
